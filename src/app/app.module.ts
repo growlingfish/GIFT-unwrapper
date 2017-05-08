@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
+import { GiftboxPage } from '../pages/giftbox/giftbox';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -12,7 +13,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage
+    LoginPage,
+    GiftboxPage
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,8 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage
+    LoginPage,
+    GiftboxPage
   ],
   providers: [
     StatusBar,
