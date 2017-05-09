@@ -15,10 +15,4 @@ export class HomePage {
     this.username = info['name'];
     this.email = info['email'];
   }
-
-  public logout() {
-    this.auth.logout().subscribe(succ => {
-      this.nav.setRoot('LoginPage')
-    });
-  }
 }
