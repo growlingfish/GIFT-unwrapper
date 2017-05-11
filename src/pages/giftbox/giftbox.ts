@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, IonicPage, LoadingController, Loading } from 'ionic-angular';
+import { GiftPage } from '../gift/gift';
+import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { User } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
@@ -7,16 +11,21 @@ import { NavController, NavParams, IonicPage } from 'ionic-angular';
   templateUrl: 'giftbox.html'
 })
 export class GiftboxPage {
-  selectedItem: any;
+  loading: Loading;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
+  currentUser: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private auth: AuthServiceProvider, private loadingCtrl: LoadingController) {
+    this.currentUser = auth.getUserInfo();
+
+    this.showLoading()
+    this.giftboxService.loadGifts(this.currentUser.email).subscribe(available => {
+      if (available) {
+        console.log("Gifts ready");
 
     // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
+/*    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
 
     this.items = [];
@@ -26,13 +35,28 @@ export class GiftboxPage {
         note: 'This is item #' + i,
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
-    }
+    }*/
+
+      } else {
+        console.log("Gifts unavailable");
+      }
+    },
+    error => {
+        console.log(error);
+    });
   }
 
   itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(GiftboxPage, {
+    this.navCtrl.push(GiftPage, {
       item: item
     });
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
 export class User {
   name: string;
@@ -18,16 +19,29 @@ export class AuthServiceProvider {
 
   currentUser: User;
 
+  constructor (private globalVar: GlobalVarProvider, private http: Http) {}
+
   public login(credentials) {
     if (credentials.email === null || credentials.password === null) {
       return Observable.throw("Please insert credentials");
     } else {
+      // don't have the data yet
       return Observable.create(observer => {
-        // At this point make a request to your backend to make a real check!
-        let access = (credentials.password === "pass" && credentials.email === "email");
-        this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(access);
-        observer.complete();
+        this.http.get(this.globalVar.getAuthURL(credentials.email, credentials.password))
+          .map(response => response.json())
+          .subscribe(data => {
+            var authed = false;
+            if (typeof data.success !== 'undefined' && data.success) {
+              this.currentUser = new User(data.name, credentials.email);
+              authed = true;
+            }
+            observer.next(authed);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
       });
     }
   }
