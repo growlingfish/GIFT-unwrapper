@@ -7,10 +7,12 @@ import { GlobalVarProvider } from '../../providers/global-var/global-var';
 export class User {
   name: string;
   email: string;
+  id: number;
 
-  constructor(name: string, email: string) {
+  constructor(name: string, email: string, id: number) {
     this.name = name;
     this.email = email;
+    this.id = id;
   }
 }
 
@@ -32,7 +34,7 @@ export class AuthServiceProvider {
           .subscribe(data => {
             var authed = false;
             if (typeof data.success !== 'undefined' && data.success) {
-              this.currentUser = new User(data.name, credentials.email);
+              this.currentUser = new User(data.name, credentials.email, data.id);
               authed = true;
             }
             observer.next(authed);

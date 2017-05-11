@@ -20,7 +20,7 @@ export class GiftboxPage {
     this.currentUser = auth.getUserInfo();
 
     this.showLoading()
-    this.giftboxService.loadGifts(this.currentUser.email).subscribe(available => {
+    this.giftboxService.loadGifts(this.currentUser.id).subscribe(available => {
       if (available) {
         console.log("Gifts ready");
 

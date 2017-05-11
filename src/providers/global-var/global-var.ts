@@ -18,7 +18,7 @@ export class GlobalVarProvider {
     return this.getApiBase() + "auth/" + user + "/" + pass;
   }
 
-  getGiftsURL (user) {
-    return this.getApiBase() + "gifts/" + user;
+  getGiftsURL (userId) {
+    return this.getApiBase() + "gifts/" + userId;
   }
 }
