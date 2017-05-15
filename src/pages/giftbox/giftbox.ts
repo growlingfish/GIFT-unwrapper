@@ -13,7 +13,7 @@ import { User } from '../../providers/auth-service/auth-service';
 export class GiftboxPage {
   loading: Loading;
   icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{title: string, sender: string, icon: string, id: number}>;
   currentUser: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private auth: AuthServiceProvider, private loadingCtrl: LoadingController) {
@@ -22,21 +22,16 @@ export class GiftboxPage {
     this.showLoading()
     this.giftboxService.loadGifts(this.currentUser.id).subscribe(available => {
       if (available) {
-        console.log("Gifts ready");
-
-    // Let's populate this page with some filler content for funzies
-/*    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }*/
-
+        this.items = [];
+        var gifts = giftboxService.getGifts();
+        for (let i = 0; i < gifts.length; i++) {
+          this.items.push({
+            title: gifts[i].title,
+            sender: 'from ' + gifts[i].sender,
+            icon: ( gifts[i].isWrapped() ? 'mail' : 'mail-open' ),
+            id: gifts[i].id
+          });
+        }
       } else {
         console.log("Gifts unavailable");
       }
@@ -48,7 +43,7 @@ export class GiftboxPage {
 
   itemTapped(event, item) {
     this.navCtrl.push(GiftPage, {
-      item: item
+      id: item.id
     });
   }
 
