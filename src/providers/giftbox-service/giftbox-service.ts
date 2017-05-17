@@ -19,7 +19,32 @@ export class Gift {
 
   public isWrapped () {
     for (let i = 0; i < this.wraps.length; i++) {
-      if (!this.wraps[i].wrapped) {
+      if (!this.wraps[i].isComplete()) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+export class Wrap {
+  id: number;
+  title: string;
+  challenges: Array<Challenge>;
+
+  constructor(id: number, title: string) {
+    this.id = id;
+    this.title = title;
+    this.challenges = [];
+  }
+
+  public setChallenge (type: string, task: string) {
+    this.challenges.push(new Challenge(type, task));
+  }
+
+  public isComplete () {
+    for (let i = 0; i < this.challenges.length; i++) {
+      if (!this.challenges[i].completed) {
         return false;
       }
     }
@@ -27,13 +52,15 @@ export class Gift {
   }
 }
 
-export class Wrap {
-  id: number;
-  wrapped: boolean;
+class Challenge {
+  type: string;
+  task: string;
+  completed: boolean;
 
-  constructor(id: number) {
-    this.id = id;
-    this.wrapped = true;
+  constructor (type: string, task: string) {
+    this.type = type;
+    this.task = task;
+    this.completed = false;
   }
 }
 
@@ -59,8 +86,21 @@ export class GiftboxServiceProvider {
             );
             for (let j = 0; j < data.gifts[i].wraps.length; j++) {
               var wrap = new Wrap(
-                data.gifts[i].wraps[j].ID
+                data.gifts[i].wraps[j].ID,
+                data.gifts[i].wraps[j].post_title
               );
+              if (data.gifts[i].wraps[j].unwrap_date) {
+                wrap.setChallenge('date', data.gifts[i].wraps[j].unwrap_date);
+              }
+              if (data.gifts[i].wraps[j].unwrap_key) {
+                wrap.setChallenge('key', data.gifts[i].wraps[j].unwrap_key);
+              }
+              if (data.gifts[i].wraps[j].unwrap_place) {
+                wrap.setChallenge('place', data.gifts[i].wraps[j].unwrap_place);
+              }
+              if (data.gifts[i].wraps[j].unwrap_artcode) {
+                wrap.setChallenge('artcode', data.gifts[i].wraps[j].unwrap_artcode);
+              }
               gift.wraps.push(wrap);
             }
             this.gifts.push(gift);
@@ -81,9 +121,7 @@ export class GiftboxServiceProvider {
   }
 
   public getGiftWithID (id: number) {
-    console.log(id);
     for (let i = 0; i < this.gifts.length; i++) {
-      console.log(this.gifts[i].id);
       if (this.gifts[i].id == id) {
         return this.gifts[i];
       }

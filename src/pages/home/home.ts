@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../providers/auth-service/auth-service';
+import { GiftboxPage } from '../giftbox/giftbox';
 
 @IonicPage()
 @Component({
@@ -13,5 +14,9 @@ export class HomePage {
 
   constructor(private nav: NavController, private auth: AuthServiceProvider) {
     this.currentUser = auth.getUserInfo();
+  }
+
+  public openGiftbox () {
+    this.nav.push(GiftboxPage);
   }
 }

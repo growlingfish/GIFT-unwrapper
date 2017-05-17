@@ -4,9 +4,12 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { GiftPage } from '../pages/gift/gift';
 import { GiftboxPage } from '../pages/giftbox/giftbox';
+import { PayloadPage } from '../pages/payload/payload';
+import { WrapPage } from '../pages/wrap/wrap';
 import { LogoutPage } from '../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,8 +21,11 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
 @NgModule({
   declarations: [
     MyApp,
+    HomePage,
     GiftPage,
     GiftboxPage,
+    PayloadPage,
+    WrapPage,
     LogoutPage,
     LoginPage
   ],
@@ -31,9 +37,12 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HomePage,
     LoginPage,
     GiftPage,
     GiftboxPage,
+    PayloadPage,
+    WrapPage,
     LogoutPage
   ],
   providers: [
