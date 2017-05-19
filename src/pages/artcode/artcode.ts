@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Artcodes } from 'artcodes-scanner';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+
+declare var Artcodes: any;
 
 @IonicPage()
 @Component({
@@ -9,13 +10,19 @@ import { Artcodes } from 'artcodes-scanner';
 })
 export class ArtcodePage {
 
-  constructor(public nav: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    Artcodes.scan(
-      { name: "Scan screen title", actions: [{ codes: ["1:1:3:3:4"] }, { codes: ["1:1:2:4:4"] }] },
-      function (code) { alert(code); }
+  constructor(public nav: NavController, public navParams: NavParams, public platform: Platform) {
+    this.platform.ready().then(
+      () => {
+        if(this.platform.is('cordova')) {
+          Artcodes.scan({
+            name: "Scan code", actions: [
+              { codes: ["1:1:3:3:4"] }, { codes: ["1:1:2:4:4"] }
+            ]
+          }, code => {
+            alert(code);
+          });
+        }
+      }
     );
   }
 
