@@ -10,6 +10,7 @@ import { GiftPage } from '../pages/gift/gift';
 import { GiftboxPage } from '../pages/giftbox/giftbox';
 import { PayloadPage } from '../pages/payload/payload';
 import { WrapPage } from '../pages/wrap/wrap';
+import { ArtcodePage } from '../pages/artcode/artcode';
 import { LogoutPage } from '../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -26,6 +27,7 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
     GiftboxPage,
     PayloadPage,
     WrapPage,
+    ArtcodePage,
     LogoutPage,
     LoginPage
   ],
@@ -43,6 +45,7 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
     GiftboxPage,
     PayloadPage,
     WrapPage,
+    ArtcodePage,
     LogoutPage
   ],
   providers: [

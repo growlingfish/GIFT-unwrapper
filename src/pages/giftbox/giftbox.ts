@@ -43,7 +43,7 @@ export class GiftboxPage {
 
   itemTapped(event, item) {
     this.navCtrl.push(GiftPage, {
-      id: item.id
+      giftId: item.id
     });
   }
 

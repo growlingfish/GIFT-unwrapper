@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { Gift } from '../../providers/giftbox-service/giftbox-service';
 import { PayloadPage } from '../payload/payload';
+import { WrapPage } from '../wrap/wrap';
 
 @IonicPage()
 @Component({
@@ -10,27 +11,30 @@ import { PayloadPage } from '../payload/payload';
   templateUrl: 'gift.html',
 })
 export class GiftPage {
-  gift: Gift;
+  giftId: number;
 
   constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController) {
-    this.gift = this.giftboxService.getGiftWithID(navParams.get('id'));
+    this.giftId = navParams.get('giftId');
   }
 
   wrapTapped(event, wrap) {
     if (wrap.isComplete()) {
       let alert = this.alertCtrl.create({
         title: 'Completed',
-        subTitle: 'You have already completed this challenge',
+        subTitle: 'You have already completed this set of challenges',
         buttons: ['OK']
       });
       alert.present(prompt);
     } else {
-      console.log(wrap);
+      this.nav.push(WrapPage, {
+        giftId: this.giftId,
+        wrapId: wrap.id
+      });
     }
   }
 
   viewPayload () {
-    if (this.gift.isWrapped()) {
+    if (this.giftboxService.getGiftWithID(this.giftId).isWrapped()) {
       let alert = this.alertCtrl.create({
         title: 'Fail',
         subTitle: 'This Gift is still wrapped',

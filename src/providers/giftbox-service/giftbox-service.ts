@@ -38,8 +38,8 @@ export class Wrap {
     this.challenges = [];
   }
 
-  public setChallenge (type: string, task: string) {
-    this.challenges.push(new Challenge(type, task));
+  public setChallenge (id: number, type: string, task: string) {
+    this.challenges.push(new Challenge(id, type, task));
   }
 
   public isComplete () {
@@ -53,11 +53,13 @@ export class Wrap {
 }
 
 class Challenge {
+  id: number;
   type: string;
   task: string;
   completed: boolean;
 
-  constructor (type: string, task: string) {
+  constructor (id: number, type: string, task: string) {
+    this.id = id;
     this.type = type;
     this.task = task;
     this.completed = false;
@@ -90,16 +92,16 @@ export class GiftboxServiceProvider {
                 data.gifts[i].wraps[j].post_title
               );
               if (data.gifts[i].wraps[j].unwrap_date) {
-                wrap.setChallenge('date', data.gifts[i].wraps[j].unwrap_date);
+                wrap.setChallenge(data.gifts[i].wraps[j].ID, 'date', data.gifts[i].wraps[j].unwrap_date);
               }
               if (data.gifts[i].wraps[j].unwrap_key) {
-                wrap.setChallenge('key', data.gifts[i].wraps[j].unwrap_key);
+                wrap.setChallenge(data.gifts[i].wraps[j].ID, 'key', data.gifts[i].wraps[j].unwrap_key);
               }
               if (data.gifts[i].wraps[j].unwrap_place) {
-                wrap.setChallenge('place', data.gifts[i].wraps[j].unwrap_place);
+                wrap.setChallenge(data.gifts[i].wraps[j].ID, 'place', data.gifts[i].wraps[j].unwrap_place);
               }
               if (data.gifts[i].wraps[j].unwrap_artcode) {
-                wrap.setChallenge('artcode', data.gifts[i].wraps[j].unwrap_artcode);
+                wrap.setChallenge(data.gifts[i].wraps[j].ID, 'artcode', data.gifts[i].wraps[j].unwrap_artcode);
               }
               gift.wraps.push(wrap);
             }
@@ -124,6 +126,16 @@ export class GiftboxServiceProvider {
     for (let i = 0; i < this.gifts.length; i++) {
       if (this.gifts[i].id == id) {
         return this.gifts[i];
+      }
+    }
+    return null;
+  }
+
+  public getWrapWithID (giftId: number, wrapId: number) {
+    let gift = this.getGiftWithID(giftId);
+    for (let i = 0; i < gift.wraps.length; i++) {
+      if (gift.wraps[i].id == wrapId) {
+        return gift.wraps[i];
       }
     }
     return null;
