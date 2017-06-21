@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, ViewController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
@@ -12,6 +12,7 @@ export class RespondPage {
   giftId: number;
   payloadId: number;
   responseText: string;
+  loading: Loading;
 
   constructor(public nav: NavController, public navParams: NavParams, public viewCtrl: ViewController, private giftboxService: GiftboxServiceProvider, public loadingCtrl: LoadingController, private notificationService: NotificationServiceProvider) {
     this.giftId = navParams.get('giftId');
@@ -19,16 +20,30 @@ export class RespondPage {
   }
 
   declineResponse () {
-    this.viewCtrl.dismiss();
+    this.hideLoading();
   }
 
   sendResponse () {
-    let loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
+    this.showLoading();
+    this.notificationService.sendResponse(this.responseText).subscribe(success => {
+      console.log(success);
+      this.hideLoading();
+    },
+    error => {
+        console.log(error);
+        this.hideLoading();
     });
-    loader.present();
-    this.notificationService.sendResponse(this.responseText);
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+  hideLoading() {
     this.viewCtrl.dismiss();
   }
 }
