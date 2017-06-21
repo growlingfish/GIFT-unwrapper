@@ -9,12 +9,14 @@ export class Gift {
   title: string;
   sender: string;
   wraps: Array<Wrap>;
+  payloads: Array<Payload>;
 
   constructor(id: number, title: string, sender: string) {
     this.id = id;
     this.title = title;
     this.sender = sender;
     this.wraps = [];
+    this.payloads = [];
   }
 
   public isWrapped () {
@@ -49,6 +51,18 @@ export class Wrap {
       }
     }
     return true;
+  }
+}
+
+export class Payload {
+  id: number;
+  title: string;
+  content: string;
+
+  constructor(id: number, title: string, content: string) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
   }
 }
 
@@ -104,6 +118,14 @@ export class GiftboxServiceProvider {
                 wrap.setChallenge(data.gifts[i].wraps[j].ID, 'artcode', data.gifts[i].wraps[j].unwrap_artcode);
               }
               gift.wraps.push(wrap);
+            }
+            for (let j = 0; j < data.gifts[i].payloads.length; j++) {
+              var payload = new Payload(
+                data.gifts[i].payloads[j].ID,
+                data.gifts[i].payloads[j].post_title,
+                data.gifts[i].payloads[j].post_content
+              );
+              gift.payloads.push(payload);
             }
             this.gifts.push(gift);
           }

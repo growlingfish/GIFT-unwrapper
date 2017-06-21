@@ -41,7 +41,9 @@ export class GiftPage {
       });
       alert.present(prompt);
     } else {
-      this.nav.push(PayloadPage);
+      this.nav.push(PayloadPage, {
+        giftId: this.giftId
+      });
     }
   }
 }

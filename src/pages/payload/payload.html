@@ -14,5 +14,12 @@
 
 
 <ion-content padding>
-
+  <ion-card>
+    <ion-card-header>
+      {{this.giftboxService.getGiftWithID(this.giftId).payloads[0].title}}
+    </ion-card-header>
+    <ion-card-content>
+      {{this.giftboxService.getGiftWithID(this.giftId).payloads[0].content}}
+    </ion-card-content>
+  </ion-card>
 </ion-content>

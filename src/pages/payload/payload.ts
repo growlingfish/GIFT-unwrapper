@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 
 /**
  * Generated class for the PayloadPage page.
@@ -13,12 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'payload.html',
 })
 export class PayloadPage {
+  giftId: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider) {
+    this.giftId = navParams.get('giftId');
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PayloadPage');
-  }
-
 }
