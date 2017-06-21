@@ -12,6 +12,7 @@ import { PayloadPage } from '../pages/payload/payload';
 import { WrapPage } from '../pages/wrap/wrap';
 import { ArtcodePage } from '../pages/artcode/artcode';
 import { LogoutPage } from '../pages/logout/logout';
+import { RespondPage } from '../pages/respond/respond';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +30,8 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
     WrapPage,
     ArtcodePage,
     LogoutPage,
-    LoginPage
+    LoginPage,
+    RespondPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
     PayloadPage,
     WrapPage,
     ArtcodePage,
-    LogoutPage
+    LogoutPage,
+    RespondPage
   ],
   providers: [
     StatusBar,

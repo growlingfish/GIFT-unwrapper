@@ -32,7 +32,7 @@ export class GiftPage {
     }
   }
 
-  viewPayload () {
+  viewPayloads () {
     if (this.giftboxService.getGiftWithID(this.giftId).isWrapped()) {
       let alert = this.alertCtrl.create({
         title: 'Fail',

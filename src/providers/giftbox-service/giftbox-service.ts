@@ -10,6 +10,7 @@ export class Gift {
   sender: string;
   wraps: Array<Wrap>;
   payloads: Array<Payload>;
+  experienced: boolean;
 
   constructor(id: number, title: string, sender: string) {
     this.id = id;
@@ -17,6 +18,7 @@ export class Gift {
     this.sender = sender;
     this.wraps = [];
     this.payloads = [];
+    this.experienced = false;
   }
 
   public isWrapped () {

@@ -36,13 +36,17 @@ export class WrapPage {
         if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'date') {
           this.dateSubscription = Observable.interval(1000).subscribe(x => {
             var today = new Date();
-            if (today.toDateString() == new Date(
+            today.setHours(0);
+            today.setMinutes(0);
+            today.setSeconds(0);
+            var challengeDate = new Date(
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(0,4)
               + '-' +
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(4,6)
               + '-' +
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(6,8)
-            ).toDateString()) {
+            );
+            if (today.getTime() - challengeDate.getTime() > 0) {
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completed = true;
               this.dateSubscription.unsubscribe();
             }
