@@ -19,6 +19,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { GlobalVarProvider } from '../providers/global-var/global-var';
 import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-service';
+import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-ser
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     GlobalVarProvider,
-    GiftboxServiceProvider
+    GiftboxServiceProvider,
+    NotificationServiceProvider
   ]
 })
 export class AppModule {}

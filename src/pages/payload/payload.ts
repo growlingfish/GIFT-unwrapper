@@ -26,7 +26,10 @@ export class PayloadPage {
   ionViewWillLeave() {
     if (!this.giftboxService.getGiftWithID(this.giftId).experienced) {
       this.giftboxService.getGiftWithID(this.giftId).experienced = true;
-      let modal = this.modalCtrl.create(RespondPage);
+      let modal = this.modalCtrl.create(RespondPage, {
+        giftId: this.giftId,
+        wrapId: this.payloadId
+      });
       modal.present();
     }
   }

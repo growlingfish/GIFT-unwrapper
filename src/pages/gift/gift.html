@@ -18,18 +18,20 @@
     <p>This Gift is still wrapped! Tap any incomplete challenges below to keep unwrapping the Gift.</p>
   </ng-container>
   <ng-container *ngIf="!this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
-    <p>You have already unwrapped{{this.giftboxService.getGiftWithID(this.giftId).experienced ? ' and experienced' : ''}} this gift.</p>
+    <p>You have unwrapped{{this.giftboxService.getGiftWithID(this.giftId).experienced ? ' and experienced' : ''}} this gift.</p>
     <button ion-button success (click)="this.viewPayloads()">Look inside your Gift</button>
   </ng-container>
 
-  <ion-list>
-    <button ion-item *ngFor="let wrap of this.giftboxService.getGiftWithID(this.giftId).wraps" (click)="wrapTapped($event, wrap)">
-      <ion-icon [name]="wrap.isComplete() ? 'checkmark-circle' : 'close-circle'" item-left></ion-icon>
-      {{wrap.title}}
-      <div class="item-note" item-right>
-        <ng-container *ngIf="!wrap.isComplete()">Not yet completed</ng-container>
-        <ng-container *ngIf="wrap.isComplete()">Completed</ng-container>
-      </div>
-    </button>
-  </ion-list>
+  <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
+    <ion-list>
+      <button ion-item *ngFor="let wrap of this.giftboxService.getGiftWithID(this.giftId).wraps" (click)="wrapTapped($event, wrap)">
+        <ion-icon [name]="wrap.isComplete() ? 'checkmark-circle' : 'close-circle'" item-left></ion-icon>
+        {{wrap.title}}
+        <div class="item-note" item-right>
+          <ng-container *ngIf="!wrap.isComplete()">Not yet completed</ng-container>
+          <ng-container *ngIf="wrap.isComplete()">Completed</ng-container>
+        </div>
+      </button>
+    </ion-list>
+  </ng-container>
 </ion-content>

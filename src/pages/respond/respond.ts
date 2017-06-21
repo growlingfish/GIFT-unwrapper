@@ -1,24 +1,34 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
+import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
-/**
- * Generated class for the RespondPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-respond',
   templateUrl: 'respond.html',
 })
 export class RespondPage {
+  giftId: number;
+  payloadId: number;
+  responseText: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public nav: NavController, public navParams: NavParams, public viewCtrl: ViewController, private giftboxService: GiftboxServiceProvider, public loadingCtrl: LoadingController, private notificationService: NotificationServiceProvider) {
+    this.giftId = navParams.get('giftId');
+    this.payloadId = navParams.get('payloadId');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RespondPage');
+  declineResponse () {
+    this.viewCtrl.dismiss();
   }
 
+  sendResponse () {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+    loader.present();
+    this.notificationService.sendResponse(this.responseText);
+    this.viewCtrl.dismiss();
+  }
 }
