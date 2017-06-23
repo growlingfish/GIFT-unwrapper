@@ -25,12 +25,10 @@
     <ion-textarea placeholder="Enter a response" [(ngModel)]="responseText"></ion-textarea>
   </ion-item>
   <p>
-    <button ion-button color="danger" icon-start (click)="declineResponse()">
-      <ion-icon name='close'></ion-icon>
+    <button ion-button color="danger" (click)="declineResponse()">
       Cancel
     </button>
-    <button ion-button icon-start (click)="sendResponse()">
-      <ion-icon name='checkmark'></ion-icon>
+    <button ion-button (click)="sendResponse()">
       Send
     </button>
   </p>

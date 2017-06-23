@@ -20,7 +20,14 @@ export class RespondPage {
   }
 
   declineResponse () {
-    this.hideLoading();
+    this.notificationService.declineResponse().subscribe(success => {
+      console.log(success);
+      this.hideLoading();
+    },
+    error => {
+        console.log(error);
+        this.hideLoading();
+    });
   }
 
   sendResponse () {
