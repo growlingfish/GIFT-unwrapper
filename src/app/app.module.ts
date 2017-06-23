@@ -13,6 +13,8 @@ import { WrapPage } from '../pages/wrap/wrap';
 import { ArtcodePage } from '../pages/artcode/artcode';
 import { LogoutPage } from '../pages/logout/logout';
 import { RespondPage } from '../pages/respond/respond';
+import { PersonalPage } from '../pages/personal/personal';
+import { KeyPage } from '../pages/key/key';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +34,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     ArtcodePage,
     LogoutPage,
     LoginPage,
-    RespondPage
+    RespondPage,
+    PersonalPage,
+    KeyPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     WrapPage,
     ArtcodePage,
     LogoutPage,
-    RespondPage
+    RespondPage,
+    PersonalPage,
+    KeyPage
   ],
   providers: [
     StatusBar,

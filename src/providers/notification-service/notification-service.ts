@@ -8,7 +8,7 @@ import ParseIni from 'ini-parser';
 @Injectable()
 export class NotificationServiceProvider {
 
-  typeBook: any[];
+  typeBook: Object;
 
   constructor(private globalVar: GlobalVarProvider, public http: Http) {
     this.typeBook = [];
@@ -17,60 +17,78 @@ export class NotificationServiceProvider {
     });
   }
 
+  testTypeBook () {
+    console.log(this.typeBook);
+  }
+
+  getTypeCode (type: string) {
+    return this.typeBook['gift'][type];
+  }
+
+  checkTypeCode (type: string) {
+    return (this.typeBook.hasOwnProperty('gift') && this.typeBook['gift'].hasOwnProperty(type));
+  }
+
   createGift () {
-    let body = new URLSearchParams();
-    body.append('type', 'create');
-    return Observable.create(observer => {
-      this.http.post(this.globalVar.getNotificationsBase(), body)
-        .map(response => response.json())
-        .subscribe(data => {
-          console.log(data);
-          observer.next(true);
-          observer.complete();
-        },
-        function (error) {
-          observer.next(false);
-          observer.complete();
-        });
-    });
+    if (this.checkTypeCode('createdGift')) {
+      let body = new URLSearchParams();
+      body.append('type', this.getTypeCode('createdGift'));
+      return Observable.create(observer => {
+        this.http.post(this.globalVar.getNotificationsBase(), body)
+          .map(response => response.json())
+          .subscribe(data => {
+            console.log(data);
+            observer.next(true);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
+      });
+    }
   }
 
   declineResponse () {
-    let body = new URLSearchParams();
-    body.append('type', 'response');
-    body.append('decline', 'No reason');
-    return Observable.create(observer => {
-      this.http.post(this.globalVar.getNotificationsBase(), body)
-        .map(response => response.json())
-        .subscribe(data => {
-          console.log(data);
-          observer.next(true);
-          observer.complete();
-        },
-        function (error) {
-          observer.next(false);
-          observer.complete();
-        });
-    });
+    if (this.checkTypeCode('responseToGift')) {
+      let body = new URLSearchParams();
+      body.append('type', this.getTypeCode('responseToGift'));
+      body.append('decline', 'No reason');
+      return Observable.create(observer => {
+        this.http.post(this.globalVar.getNotificationsBase(), body)
+          .map(response => response.json())
+          .subscribe(data => {
+            console.log(data);
+            observer.next(true);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
+      });
+    }
   }
 
   sendResponse (responseText) {
-    let body = new URLSearchParams();
-    body.append('type', 'response');
-    body.append('responseText', responseText);
-    return Observable.create(observer => {
-      this.http.post(this.globalVar.getNotificationsBase(), body)
-        .map(response => response.json())
-        .subscribe(data => {
-          console.log(data);
-          observer.next(true);
-          observer.complete();
-        },
-        function (error) {
-          observer.next(false);
-          observer.complete();
-        });
-    });
+    if (this.checkTypeCode('responseToGift')) {
+      let body = new URLSearchParams();
+      body.append('type', this.getTypeCode('responseToGift'));
+      body.append('responseText', responseText);
+      return Observable.create(observer => {
+        this.http.post(this.globalVar.getNotificationsBase(), body)
+          .map(response => response.json())
+          .subscribe(data => {
+            console.log(data);
+            observer.next(true);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
+      });
+    }
   }
 
 }

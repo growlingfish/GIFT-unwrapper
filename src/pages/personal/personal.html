@@ -1,0 +1,24 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Personal challenge</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <p>Follow these instructions:</p>
+  <ion-card>
+    <ion-card-content>
+      {{this.getChallenge()}}
+    </ion-card-content>
+  </ion-card>
+  <p>
+    <button ion-button color="danger" (click)="failChallenge()">
+      I can't do this right now
+    </button>
+    <button ion-button (click)="completeChallenge()">
+      Done
+    </button>
+  </p>
+</ion-content>

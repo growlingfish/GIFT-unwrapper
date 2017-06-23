@@ -3,13 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { Observable } from 'rxjs/Rx';
 import { ArtcodePage } from '../artcode/artcode';
+import { PersonalPage } from '../personal/personal';
+import { KeyPage } from '../key/key';
 
-/**
- * Generated class for the WrapPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-wrap',
@@ -26,11 +22,11 @@ export class WrapPage {
   }
 
   ionViewDidLoad() {
-    this.doChallenges();
+    this.doBackgroundChallenges();
   }
 
   // check activity challenges
-  doChallenges () {
+  doBackgroundChallenges () {
     for (let i = 0; i < this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges.length; i++) {
       if (!this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completed) {
         if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'date') {
@@ -47,7 +43,7 @@ export class WrapPage {
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(6,8)
             );
             if (today.getTime() - challengeDate.getTime() > 0) {
-              this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completed = true;
+              this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
               this.dateSubscription.unsubscribe();
             }
           });
@@ -69,8 +65,17 @@ export class WrapPage {
       if (challenge.type == 'artcode') {
         this.nav.push(ArtcodePage, {
           giftId: this.giftId,
-          wrapId: this.wrapId,
-          challengeId: challenge.id
+          wrapId: this.wrapId
+        });
+      } else if (challenge.type == 'personal') {
+        this.nav.push(PersonalPage, {
+          giftId: this.giftId,
+          wrapId: this.wrapId
+        });
+      } else if (challenge.type == 'key') {
+        this.nav.push(KeyPage, {
+          giftId: this.giftId,
+          wrapId: this.wrapId
         });
       } else {
         console.log("Nothing to do here");
