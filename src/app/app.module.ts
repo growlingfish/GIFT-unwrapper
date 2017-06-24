@@ -15,6 +15,8 @@ import { LogoutPage } from '../pages/logout/logout';
 import { RespondPage } from '../pages/respond/respond';
 import { PersonalPage } from '../pages/personal/personal';
 import { KeyPage } from '../pages/key/key';
+import { PlacePage } from '../pages/place/place';
+import { RegisterPage } from '../pages/register/register';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +24,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { GlobalVarProvider } from '../providers/global-var/global-var';
 import { GiftboxServiceProvider } from '../providers/giftbox-service/giftbox-service';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     LoginPage,
     RespondPage,
     PersonalPage,
-    KeyPage
+    KeyPage,
+    PlacePage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     LogoutPage,
     RespondPage,
     PersonalPage,
-    KeyPage
+    KeyPage,
+    PlacePage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
@@ -65,7 +72,8 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     AuthServiceProvider,
     GlobalVarProvider,
     GiftboxServiceProvider,
-    NotificationServiceProvider
+    NotificationServiceProvider,
+    Geolocation 
   ]
 })
 export class AppModule {}

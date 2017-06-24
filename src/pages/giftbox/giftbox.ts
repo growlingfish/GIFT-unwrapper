@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { GiftPage } from '../gift/gift';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../providers/auth-service/auth-service';
 
-@IonicPage()
 @Component({
   selector: 'page-giftbox',
   templateUrl: 'giftbox.html'

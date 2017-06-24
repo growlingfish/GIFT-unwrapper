@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
 declare var Artcodes: any;
 
-@IonicPage()
 @Component({
   selector: 'page-artcode',
   templateUrl: 'artcode.html',

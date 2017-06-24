@@ -10,8 +10,8 @@
 <ion-content padding>
   <ion-list>
     <button ion-item *ngFor="let challenge of this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges" (click)="challengeTapped($event, challenge)">
-      <ion-icon [name]="challenge.completed ? 'checkmark-circle' : 'close-circle'" item-left></ion-icon>
-      {{challenge.type}} : {{challenge.task}}
+      <ion-icon [name]="challenge.completed ? 'checkmark-circle' : 'close-circle'" [color]="challenge.completed ? 'secondary' : 'danger'" item-left></ion-icon>
+      <ion-icon [name]="this.getIcon(challenge.type)" [isActive]="!challenge.completed"></ion-icon> {{this.getHint(challenge.type)}}
       <div class="item-note" item-right>
         <ng-container *ngIf="!challenge.completed">Not yet completed</ng-container>
         <ng-container *ngIf="challenge.completed">Completed</ng-container>

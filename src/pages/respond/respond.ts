@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, ViewController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, ViewController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
-@IonicPage()
 @Component({
   selector: 'page-respond',
   templateUrl: 'respond.html',

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { Observable } from 'rxjs/Rx';
 import { ArtcodePage } from '../artcode/artcode';
 import { PersonalPage } from '../personal/personal';
 import { KeyPage } from '../key/key';
+import { PlacePage } from '../place/place';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
-@IonicPage()
 @Component({
   selector: 'page-wrap',
   templateUrl: 'wrap.html',
@@ -14,9 +16,8 @@ import { KeyPage } from '../key/key';
 export class WrapPage {
   giftId: number;
   wrapId: number;
-  dateSubscription;
-
-  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController) {
+  
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController, private geolocation: Geolocation, private globalVar: GlobalVarProvider, public platform: Platform) {
     this.giftId = navParams.get('giftId');
     this.wrapId = navParams.get('wrapId');
   }
@@ -30,7 +31,7 @@ export class WrapPage {
     for (let i = 0; i < this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges.length; i++) {
       if (!this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completed) {
         if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'date') {
-          this.dateSubscription = Observable.interval(1000).subscribe(x => {
+          let dateSubscription = Observable.interval(1000).subscribe(x => {
             var today = new Date();
             today.setHours(0);
             today.setMinutes(0);
@@ -44,11 +45,51 @@ export class WrapPage {
             );
             if (today.getTime() - challengeDate.getTime() > 0) {
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
-              this.dateSubscription.unsubscribe();
+              dateSubscription.unsubscribe();
             }
           });
+        } else if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'place') {
+          if(this.platform.is('cordova')) {
+            let watch = this.geolocation.watchPosition().filter((p) => p.coords !== undefined).subscribe(position => {
+              var task = JSON.parse(this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task);
+              if (this.globalVar.getDistance(position.coords.latitude, position.coords.longitude, task["lat"], task["lng"]) < this.globalVar.nearThreshold) {
+                this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
+                watch.unsubscribe();
+              }
+            });
+          }
         }
       }
+    }
+  }
+
+  getHint (type) {
+    switch (type) {
+      case 'date':
+        return 'The gift cannot be unwrapped before a certain date';
+      case 'key':
+        return 'You need a keycode to unwrap the gift';
+      case 'artcode':
+        return 'You need to scan an Artcode to unwrap the gift';
+      case 'place':
+        return 'You need to be near a particular locaton to unwrap your gift';
+      case 'personal':
+        return this.giftboxService.getGiftWithID(this.giftId).sender + ' has set personal conditions for unwrapping the gift';
+    }
+  }
+
+  getIcon (type) {
+    switch (type) {
+      case 'date':
+        return 'alarm';
+      case 'key':
+        return 'key';
+      case 'artcode':
+        return 'image';
+      case 'place':
+        return 'compass';
+      case 'personal':
+        return 'heart';
     }
   }
 
@@ -74,6 +115,11 @@ export class WrapPage {
         });
       } else if (challenge.type == 'key') {
         this.nav.push(KeyPage, {
+          giftId: this.giftId,
+          wrapId: this.wrapId
+        });
+      } else if (challenge.type == 'place') {
+        this.nav.push(PlacePage, {
           giftId: this.giftId,
           wrapId: this.wrapId
         });

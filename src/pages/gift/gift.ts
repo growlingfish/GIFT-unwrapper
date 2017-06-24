@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { PayloadPage } from '../payload/payload';
 import { WrapPage } from '../wrap/wrap';
 
-@IonicPage()
 @Component({
   selector: 'page-gift',
   templateUrl: 'gift.html',
