@@ -17,6 +17,7 @@ import { PersonalPage } from '../pages/personal/personal';
 import { KeyPage } from '../pages/key/key';
 import { PlacePage } from '../pages/place/place';
 import { RegisterPage } from '../pages/register/register';
+import { DatePage } from '../pages/date/date';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,7 +42,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     PersonalPage,
     KeyPage,
     PlacePage,
-    RegisterPage
+    RegisterPage,
+    DatePage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     PersonalPage,
     KeyPage,
     PlacePage,
-    RegisterPage
+    RegisterPage,
+    DatePage
   ],
   providers: [
     StatusBar,

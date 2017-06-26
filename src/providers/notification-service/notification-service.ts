@@ -4,13 +4,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import ParseIni from 'ini-parser';
+import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @Injectable()
 export class NotificationServiceProvider {
 
   typeBook: Object;
 
-  constructor(private globalVar: GlobalVarProvider, public http: Http) {
+  constructor(private globalVar: GlobalVarProvider, public http: Http, private authService: AuthServiceProvider, private giftboxService: GiftboxServiceProvider) {
     this.typeBook = [];
     this.http.get('giftplatform-common/types.ini').map(res =>res.text()).subscribe(data => {
       this.typeBook = ParseIni.parse(data);
@@ -29,32 +31,14 @@ export class NotificationServiceProvider {
     return (this.typeBook.hasOwnProperty('gift') && this.typeBook['gift'].hasOwnProperty(type));
   }
 
-  createGift () {
-    if (this.checkTypeCode('createdGift')) {
-      let body = new URLSearchParams();
-      body.append('type', this.getTypeCode('createdGift'));
-      return Observable.create(observer => {
-        this.http.post(this.globalVar.getNotificationsBase(), body)
-          .map(response => response.json())
-          .subscribe(data => {
-            console.log(data);
-            observer.next(true);
-            observer.complete();
-          },
-          function (error) {
-            observer.next(false);
-            observer.complete();
-          });
-      });
-    }
-  }
-
   declineResponse () {
-    if (this.checkTypeCode('responseToGift')) {
-      let body = new URLSearchParams();
-      body.append('type', this.getTypeCode('responseToGift'));
-      body.append('decline', 'No reason');
-      return Observable.create(observer => {
+    return Observable.create(observer => {
+      if (this.checkTypeCode('responseToGift')) {
+        let body = new URLSearchParams();
+        body.append('type', this.getTypeCode('responseToGift'));
+        body.append('gifter', this.giftboxService.getGiftWithID(giftId).sender);
+        body.append('receiver', this.authService.currentUser.id.toString());
+        body.append('decline', 'No reason');
         this.http.post(this.globalVar.getNotificationsBase(), body)
           .map(response => response.json())
           .subscribe(data => {
@@ -66,29 +50,41 @@ export class NotificationServiceProvider {
             observer.next(false);
             observer.complete();
           });
-      });
-    }
+      } else {
+        observer.next(false);
+        observer.complete();
+      }
+    });
   }
 
-  sendResponse (responseText) {
-    if (this.checkTypeCode('responseToGift')) {
-      let body = new URLSearchParams();
-      body.append('type', this.getTypeCode('responseToGift'));
-      body.append('responseText', responseText);
+  sendResponse (responseText, giftId) {
       return Observable.create(observer => {
-        this.http.post(this.globalVar.getNotificationsBase(), body)
-          .map(response => response.json())
-          .subscribe(data => {
-            console.log(data);
-            observer.next(true);
-            observer.complete();
-          },
-          function (error) {
-            observer.next(false);
-            observer.complete();
-          });
+        if (this.checkTypeCode('responseToGift')) {
+          console.log("sendReponse / if true");
+          let body = new URLSearchParams();
+          body.append('type', this.getTypeCode('responseToGift'));
+          body.append('gifter', this.giftboxService.getGiftWithID(giftId).sender);
+          body.append('receiver', this.authService.currentUser.id.toString());
+          body.append('responseText', responseText);
+          this.http.post(this.globalVar.getNotificationsBase(), body)
+            .map(response => response.json())
+            .subscribe(data => {
+              console.log("start data");
+              console.log(data);
+              console.log("end data");
+              observer.next(true);
+              observer.complete();
+            },
+            function (error) {
+              observer.next(false);
+              observer.complete();
+            });
+        } else {
+          console.log("sendReponse / if false");
+          observer.next(false);
+          observer.complete();
+        }
       });
-    }
   }
 
 }

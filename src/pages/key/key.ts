@@ -7,7 +7,6 @@ import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-
   templateUrl: 'key.html',
 })
 export class KeyPage {
-
   codeText: string;
   giftId: number;
   wrapId: number;

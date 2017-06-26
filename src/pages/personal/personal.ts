@@ -7,7 +7,6 @@ import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-
   templateUrl: 'personal.html',
 })
 export class PersonalPage {
-  
   giftId: number;
   wrapId: number;
   

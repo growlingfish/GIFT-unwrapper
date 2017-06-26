@@ -32,12 +32,16 @@ export class RespondPage {
   sendResponse () {
     this.showLoading();
     this.notificationService.sendResponse(this.responseText).subscribe(success => {
+      console.log("sendResponse -> success");
+      console.log("start success");
       console.log(success);
+      console.log("end success");
       this.hideLoading();
     },
     error => {
-        console.log(error);
-        this.hideLoading();
+      console.log("sendResponse -> error");
+      console.log(error);
+      this.hideLoading();
     });
   }
 
@@ -50,6 +54,6 @@ export class RespondPage {
   }
 
   hideLoading() {
-    this.viewCtrl.dismiss();
+    this.loading.dismiss();
   }
 }

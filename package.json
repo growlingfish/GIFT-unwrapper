@@ -24,6 +24,7 @@
         "@ionic-native/geolocation": "^3.12.1",
         "@ionic-native/splash-screen": "3.6.1",
         "@ionic-native/status-bar": "3.6.1",
+        "@ionic/cloud-angular": "^0.12.0",
         "@ionic/storage": "2.0.1",
         "artcodes-scanner": "git+https://github.com/horizon-institute/artcodes-cordova.git",
         "cordova-android": "^6.2.3",

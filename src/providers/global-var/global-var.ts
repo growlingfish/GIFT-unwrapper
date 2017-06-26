@@ -8,12 +8,19 @@ export class GlobalVarProvider {
   notificationBase: string;
   nearThreshold: number;
   mapboxToken: string;
+  latitude: number;
+  longitude: number;
 
   constructor() {
-    this.apiBase = "https://gifting.dev/wp-json/gift/v1/";
+    //this.apiBase = "https://gifting.dev/wp-json/gift/v1/";
+    this.apiBase = "https://gifting.digital/wp-json/gift/v1/";
     this.notificationBase = "https://chat.gifting.digital/api/";
-    this.nearThreshold = 500;
+    this.nearThreshold = 0.500; // in km
     this.mapboxToken = 'pk.eyJ1IjoiZ3Jvd2xpbmdmaXNoIiwiYSI6ImNqNGI3cGh0eTA3MmQycW85YmNsZGNuYjgifQ.fj1kKjkslfyuf0t4ELM1zw';
+    
+    // Nottingham
+    this.latitude = 52.951693;
+    this.longitude = -1.184210;
   }
 
   getApiBase () {

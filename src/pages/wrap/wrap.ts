@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 import { ArtcodePage } from '../artcode/artcode';
 import { PersonalPage } from '../personal/personal';
 import { KeyPage } from '../key/key';
 import { PlacePage } from '../place/place';
+import { DatePage } from '../date/date';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
@@ -16,6 +17,7 @@ import { GlobalVarProvider } from '../../providers/global-var/global-var';
 export class WrapPage {
   giftId: number;
   wrapId: number;
+  watch: Subscription;
   
   constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController, private geolocation: Geolocation, private globalVar: GlobalVarProvider, public platform: Platform) {
     this.giftId = navParams.get('giftId');
@@ -43,18 +45,18 @@ export class WrapPage {
               + '-' +
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(6,8)
             );
-            if (today.getTime() - challengeDate.getTime() > 0) {
+            if (today.getTime() - challengeDate.getTime() >= 0) {
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
               dateSubscription.unsubscribe();
             }
           });
         } else if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'place') {
           if(this.platform.is('cordova')) {
-            let watch = this.geolocation.watchPosition().filter((p) => p.coords !== undefined).subscribe(position => {
+            this.watch = this.geolocation.watchPosition().filter((p) => p.coords !== undefined).subscribe(position => {
               var task = JSON.parse(this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task);
               if (this.globalVar.getDistance(position.coords.latitude, position.coords.longitude, task["lat"], task["lng"]) < this.globalVar.nearThreshold) {
                 this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
-                watch.unsubscribe();
+                this.watch.unsubscribe();
               }
             });
           }
@@ -66,15 +68,15 @@ export class WrapPage {
   getHint (type) {
     switch (type) {
       case 'date':
-        return 'The gift cannot be unwrapped before a certain date';
+        return 'Wait for a certain date';
       case 'key':
-        return 'You need a keycode to unwrap the gift';
+        return 'Enter a keycode';
       case 'artcode':
-        return 'You need to scan an Artcode to unwrap the gift';
+        return 'Scan an Artcode';
       case 'place':
-        return 'You need to be near a particular locaton to unwrap your gift';
+        return 'Travel to a location';
       case 'personal':
-        return this.giftboxService.getGiftWithID(this.giftId).sender + ' has set personal conditions for unwrapping the gift';
+        return 'Complete a personal request';
     }
   }
 
@@ -123,10 +125,25 @@ export class WrapPage {
           giftId: this.giftId,
           wrapId: this.wrapId
         });
+      } else if (challenge.type == 'date') {
+        this.nav.push(DatePage, {
+          giftId: this.giftId,
+          wrapId: this.wrapId
+        });
       } else {
         console.log("Nothing to do here");
       }
     }
+  }
+
+  ionViewWillLeave() {
+    this.platform.ready().then(
+      () => {
+        if(this.platform.is('cordova') && !this.watch.closed) {
+          this.watch.unsubscribe();
+        }
+      }
+    );
   }
 
 }
