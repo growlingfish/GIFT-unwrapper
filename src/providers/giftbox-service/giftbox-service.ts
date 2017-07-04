@@ -112,17 +112,20 @@ export class GiftboxServiceProvider {
               if (data.gifts[i].wraps[j].unwrap_date) {
                 wrap.setChallenge('date', data.gifts[i].wraps[j].unwrap_date);
               }
-              if (data.gifts[i].wraps[j].unwrap_key) {
-                wrap.setChallenge('key', data.gifts[i].wraps[j].unwrap_key);
-              }
               if (data.gifts[i].wraps[j].unwrap_place) {
                 wrap.setChallenge('place', data.gifts[i].wraps[j].unwrap_place);
               }
-              if (data.gifts[i].wraps[j].unwrap_artcode) {
-                wrap.setChallenge('artcode', data.gifts[i].wraps[j].unwrap_artcode);
+              if (data.gifts[i].wraps[j].unwrap_object) {
+                wrap.setChallenge('object', data.gifts[i].wraps[j].unwrap_object);
               }
               if (data.gifts[i].wraps[j].unwrap_personal) {
                 wrap.setChallenge('personal', data.gifts[i].wraps[j].unwrap_personal);
+              }
+              if (data.gifts[i].wraps[j].unwrap_key) {
+                wrap.setChallenge('key', data.gifts[i].wraps[j].unwrap_key);
+              }
+              if (data.gifts[i].wraps[j].unwrap_artcode) {
+                wrap.setChallenge('artcode', data.gifts[i].wraps[j].unwrap_artcode);
               }
               gift.wraps.push(wrap);
             }

@@ -19,29 +19,25 @@ export class RespondPage {
   }
 
   declineResponse () {
-    this.notificationService.declineResponse().subscribe(success => {
+    this.notificationService.declineResponse(this.giftId).subscribe(success => {
       console.log(success);
-      this.hideLoading();
+      this.nav.pop();
     },
     error => {
-        console.log(error);
-        this.hideLoading();
+      console.log(error);
+      this.nav.pop();
     });
   }
 
   sendResponse () {
     this.showLoading();
-    this.notificationService.sendResponse(this.responseText).subscribe(success => {
-      console.log("sendResponse -> success");
-      console.log("start success");
+    this.notificationService.sendResponse(this.responseText, this.giftId).subscribe(success => {
       console.log(success);
-      console.log("end success");
-      this.hideLoading();
+      this.nav.pop();
     },
     error => {
-      console.log("sendResponse -> error");
       console.log(error);
-      this.hideLoading();
+      this.nav.pop();
     });
   }
 
@@ -51,9 +47,5 @@ export class RespondPage {
       dismissOnPageChange: true
     });
     this.loading.present();
-  }
-
-  hideLoading() {
-    this.loading.dismiss();
   }
 }

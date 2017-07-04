@@ -7,6 +7,7 @@ import { PersonalPage } from '../personal/personal';
 import { KeyPage } from '../key/key';
 import { PlacePage } from '../place/place';
 import { DatePage } from '../date/date';
+import { ObjectPage } from '../object/object';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
@@ -47,6 +48,16 @@ export class WrapPage {
             );
             if (today.getTime() - challengeDate.getTime() >= 0) {
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
+              let alert = this.alertCtrl.create({
+                title: 'Well done!',
+                subTitle: "You've reached the correct day for your gift to be unwrapped",
+                buttons: [
+                  {
+                    text: 'OK'
+                  }
+                ]
+              });
+              alert.present(prompt);
               dateSubscription.unsubscribe();
             }
           });
@@ -56,6 +67,16 @@ export class WrapPage {
               var task = JSON.parse(this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task);
               if (this.globalVar.getDistance(position.coords.latitude, position.coords.longitude, task["lat"], task["lng"]) < this.globalVar.nearThreshold) {
                 this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
+                let alert = this.alertCtrl.create({
+                  title: 'Well done!',
+                  subTitle: "You've found the correct location for your gift to be unwrapped",
+                  buttons: [
+                    {
+                      text: 'OK'
+                    }
+                  ]
+                });
+                alert.present(prompt);
                 this.watch.unsubscribe();
               }
             });
@@ -76,7 +97,9 @@ export class WrapPage {
       case 'place':
         return 'Travel to a location';
       case 'personal':
-        return 'Complete a personal request';
+        return 'A personal request';
+      case 'object':
+        return 'Find an exhibit';
     }
   }
 
@@ -92,6 +115,8 @@ export class WrapPage {
         return 'compass';
       case 'personal':
         return 'heart';
+      case 'object':
+        return 'cube';
     }
   }
 
@@ -127,6 +152,11 @@ export class WrapPage {
         });
       } else if (challenge.type == 'date') {
         this.nav.push(DatePage, {
+          giftId: this.giftId,
+          wrapId: this.wrapId
+        });
+      } else if (challenge.type == 'object') {
+        this.nav.push(ObjectPage, {
           giftId: this.giftId,
           wrapId: this.wrapId
         });

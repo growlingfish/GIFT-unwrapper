@@ -31,18 +31,16 @@ export class NotificationServiceProvider {
     return (this.typeBook.hasOwnProperty('gift') && this.typeBook['gift'].hasOwnProperty(type));
   }
 
-  declineResponse () {
+  declineResponse (giftId) {
     return Observable.create(observer => {
       if (this.checkTypeCode('responseToGift')) {
         let body = new URLSearchParams();
         body.append('type', this.getTypeCode('responseToGift'));
-        body.append('gifter', this.giftboxService.getGiftWithID(giftId).sender);
+        body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
         body.append('receiver', this.authService.currentUser.id.toString());
         body.append('decline', 'No reason');
         this.http.post(this.globalVar.getNotificationsBase(), body)
-          .map(response => response.json())
           .subscribe(data => {
-            console.log(data);
             observer.next(true);
             observer.complete();
           },
@@ -63,19 +61,16 @@ export class NotificationServiceProvider {
           console.log("sendReponse / if true");
           let body = new URLSearchParams();
           body.append('type', this.getTypeCode('responseToGift'));
-          body.append('gifter', this.giftboxService.getGiftWithID(giftId).sender);
+          body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
           body.append('receiver', this.authService.currentUser.id.toString());
           body.append('responseText', responseText);
           this.http.post(this.globalVar.getNotificationsBase(), body)
-            .map(response => response.json())
             .subscribe(data => {
-              console.log("start data");
-              console.log(data);
-              console.log("end data");
               observer.next(true);
               observer.complete();
             },
             function (error) {
+              console.log(error);
               observer.next(false);
               observer.complete();
             });

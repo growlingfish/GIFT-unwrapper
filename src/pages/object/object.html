@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Exhibit challenge</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} would like you to find this exhibit before unwrapping your gift:</p>
+  <ion-card>
+    <ng-container *ngIf="this.getExhibit().post_image">
+      <img [src]="this.getExhibit().post_image"/>
+    </ng-container>
+    <ion-card-content>
+      <ion-card-title>
+        {{this.getExhibit().post_title}}
+      </ion-card-title>
+      <p>
+        {{this.getExhibit().post_content}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <p>
+    <button ion-button color="danger" (click)="failChallenge()">
+      I can't do this right now
+    </button>
+    <button ion-button (click)="completeChallenge()">
+      Found!
+    </button>
+  </p>
+</ion-content>

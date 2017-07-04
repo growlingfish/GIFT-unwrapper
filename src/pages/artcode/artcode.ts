@@ -40,6 +40,20 @@ export class ArtcodePage {
             });
             alert.present(prompt);
           });
+        } else {
+          let alert = this.alertCtrl.create({
+            title: 'Bad luck',
+            subTitle: "You can't use the Artcode scanner when you're using Ionic View or ionic serve",
+            buttons: [
+              {
+                text: 'OK',
+                handler: data => {
+                  this.nav.pop();
+                }
+              }
+            ]
+          });
+          alert.present(prompt);
         }
       }
     );
