@@ -37,7 +37,7 @@ export class NotificationServiceProvider {
         let body = new URLSearchParams();
         body.append('type', this.getTypeCode('responseToGift'));
         body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
-        body.append('receiver', this.authService.currentUser.id.toString());
+        body.append('receiver', this.authService.currentUser.email);
         body.append('decline', 'No reason');
         this.http.post(this.globalVar.getNotificationsBase(), body)
           .subscribe(data => {
@@ -62,12 +62,20 @@ export class NotificationServiceProvider {
           let body = new URLSearchParams();
           body.append('type', this.getTypeCode('responseToGift'));
           body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
-          body.append('receiver', this.authService.currentUser.id.toString());
+          body.append('receiver', this.authService.currentUser.email);
           body.append('responseText', responseText);
           this.http.post(this.globalVar.getNotificationsBase(), body)
             .subscribe(data => {
               observer.next(true);
-              observer.complete();
+              this.http.get(this.globalVar.getRespondedURL(giftId))
+                .subscribe(data => {
+                  observer.next(true);
+                  observer.complete();
+                },
+                function (error) {
+                  observer.next(false);
+                  observer.complete();
+                });
             },
             function (error) {
               console.log(error);

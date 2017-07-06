@@ -29,7 +29,7 @@ export class KeyPage {
   }
 
   tryChallenge () {
-    if (this.codeText == this.getChallenge().task) {
+    if (this.codeText.toLowerCase() == this.getChallenge().task.toLowerCase()) {
       this.getChallenge().completeChallenge();
       this.nav.pop();
     } else {

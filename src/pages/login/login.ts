@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -12,7 +11,7 @@ export class LoginPage {
   loading: Loading;
   registerCredentials = { email: '', password: '' };
 
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private notificationService: NotificationServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
   }
 
   public createAccount() {

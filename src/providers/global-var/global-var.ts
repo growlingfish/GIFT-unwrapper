@@ -39,6 +39,18 @@ export class GlobalVarProvider {
     return this.getApiBase() + "gifts/" + userId;
   }
 
+  getReceivedURL (giftId) {
+    return this.getApiBase() + "received/gift/" + giftId;
+  }
+
+  getUnwrappedURL (giftId) {
+    return this.getApiBase() + "unwrapped/gift/" + giftId;
+  }
+
+  getRespondedURL (giftId) {
+    return this.getApiBase() + "responded/gift/" + giftId;
+  }
+
   getDistance (lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = Math.cos;
