@@ -5,6 +5,7 @@ import { PayloadPage } from '../payload/payload';
 import { WrapPage } from '../wrap/wrap';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import { Http } from '@angular/http';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 @Component({
   selector: 'page-gift',
@@ -13,7 +14,7 @@ import { Http } from '@angular/http';
 export class GiftPage {
   giftId: number;
 
-  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController, private globalVar: GlobalVarProvider, public http: Http) {
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController, private globalVar: GlobalVarProvider, public http: Http, private notificationService: NotificationServiceProvider) {
     this.giftId = navParams.get('giftId');
 
     this.http.get(this.globalVar.getReceivedURL(this.giftId))
@@ -23,6 +24,12 @@ export class GiftPage {
       function (error) {
         console.log(error);
       });
+    this.notificationService.giftReceived(this.giftId).subscribe(success => {
+      console.log(success);
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   wrapTapped(event, wrap) {

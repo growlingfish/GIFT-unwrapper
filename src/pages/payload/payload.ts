@@ -4,6 +4,7 @@ import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-
 import { RespondPage } from '../respond/respond';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import { Http } from '@angular/http';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 @Component({
   selector: 'page-payload',
@@ -13,7 +14,7 @@ export class PayloadPage {
   giftId: number;
   payloadId: number;
 
-  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, public modalCtrl: ModalController, private globalVar: GlobalVarProvider, public http: Http) {
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, public modalCtrl: ModalController, private globalVar: GlobalVarProvider, public http: Http, private notificationService: NotificationServiceProvider) {
     this.giftId = navParams.get('giftId');
     this.payloadId = navParams.get('payloadId');
 
@@ -24,6 +25,12 @@ export class PayloadPage {
       function (error) {
         console.log(error);
       });
+    this.notificationService.giftUnwrapped(this.giftId).subscribe(success => {
+      console.log(success);
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   ionViewWillLeave() {

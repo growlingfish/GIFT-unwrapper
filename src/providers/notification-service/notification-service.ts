@@ -31,6 +31,50 @@ export class NotificationServiceProvider {
     return (this.typeBook.hasOwnProperty('gift') && this.typeBook['gift'].hasOwnProperty(type));
   }
 
+  giftReceived (giftId) {
+    return Observable.create(observer => {
+      if (this.checkTypeCode('receivedGift')) {
+        let body = new URLSearchParams();
+        body.append('type', this.getTypeCode('receivedGift'));
+        body.append('id', giftId);
+        this.http.post(this.globalVar.getNotificationsBase(), body)
+          .subscribe(data => {
+            observer.next(true);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
+      } else {
+        observer.next(false);
+        observer.complete();
+      }
+    });
+  }
+
+  giftUnwrapped (giftId) {
+    return Observable.create(observer => {
+      if (this.checkTypeCode('unwrappedGift')) {
+        let body = new URLSearchParams();
+        body.append('type', this.getTypeCode('unwrappedGift'));
+        body.append('id', giftId);
+        this.http.post(this.globalVar.getNotificationsBase(), body)
+          .subscribe(data => {
+            observer.next(true);
+            observer.complete();
+          },
+          function (error) {
+            observer.next(false);
+            observer.complete();
+          });
+      } else {
+        observer.next(false);
+        observer.complete();
+      }
+    });
+  }
+
   declineResponse (giftId) {
     return Observable.create(observer => {
       if (this.checkTypeCode('responseToGift')) {
@@ -58,7 +102,14 @@ export class NotificationServiceProvider {
   sendResponse (responseText, giftId) {
       return Observable.create(observer => {
         if (this.checkTypeCode('responseToGift')) {
-          console.log("sendReponse / if true");
+          this.http.get(this.globalVar.getRespondedURL(giftId))
+            .subscribe(data => {
+                console.log(data);      
+              },
+              function (error) {
+                console.log(error);
+              });
+
           let body = new URLSearchParams();
           body.append('type', this.getTypeCode('responseToGift'));
           body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
@@ -67,15 +118,7 @@ export class NotificationServiceProvider {
           this.http.post(this.globalVar.getNotificationsBase(), body)
             .subscribe(data => {
               observer.next(true);
-              this.http.get(this.globalVar.getRespondedURL(giftId))
-                .subscribe(data => {
-                  observer.next(true);
-                  observer.complete();
-                },
-                function (error) {
-                  observer.next(false);
-                  observer.complete();
-                });
+              observer.complete();
             },
             function (error) {
               console.log(error);
@@ -83,7 +126,6 @@ export class NotificationServiceProvider {
               observer.complete();
             });
         } else {
-          console.log("sendReponse / if false");
           observer.next(false);
           observer.complete();
         }
