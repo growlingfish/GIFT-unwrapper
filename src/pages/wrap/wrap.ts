@@ -36,9 +36,9 @@ export class WrapPage {
         if (this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].type == 'date') {
           let dateSubscription = Observable.interval(1000).subscribe(x => {
             var today = new Date();
-            today.setHours(0);
-            today.setMinutes(0);
-            today.setSeconds(0);
+            today.setHours(23);
+            today.setMinutes(59);
+            today.setSeconds(59);
             var challengeDate = new Date(
               this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].task.substring(0,4)
               + '-' +
@@ -164,6 +164,10 @@ export class WrapPage {
         console.log("Nothing to do here");
       }
     }
+  }
+
+  unwrap () {
+    this.nav.pop();
   }
 
   ionViewWillLeave() {
