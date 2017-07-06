@@ -12,7 +12,7 @@
     <p>This Gift is still wrapped! Tap any incomplete challenges below to keep unwrapping the Gift.</p>
   </ng-container>
   <ng-container *ngIf="!this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
-    <p>You have unwrapped{{this.giftboxService.getGiftWithID(this.giftId).experienced ? ' and experienced' : ''}} this gift.</p>
+    <p>You have unwrapped{{this.giftboxService.getGiftWithID(this.giftId).responded ? ' and responded to' : ''}} this gift.</p>
     <button ion-button success (click)="this.viewPayloads()">Look inside your Gift</button>
   </ng-container>
 

@@ -17,19 +17,22 @@ export class GiftPage {
   constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private alertCtrl: AlertController, private globalVar: GlobalVarProvider, public http: Http, private notificationService: NotificationServiceProvider) {
     this.giftId = navParams.get('giftId');
 
-    this.http.get(this.globalVar.getReceivedURL(this.giftId))
-      .subscribe(data => {
-        console.log(data);
+    if (!this.giftboxService.getGiftWithID(this.giftId).received) {
+      this.giftboxService.getGiftWithID(this.giftId).received = true;
+      this.http.get(this.globalVar.getReceivedURL(this.giftId))
+        .subscribe(data => {
+          console.log(data);
+        },
+        function (error) {
+          console.log(error);
+        });
+      this.notificationService.giftReceived(this.giftId).subscribe(success => {
+        console.log(success);
       },
-      function (error) {
+      error => {
         console.log(error);
       });
-    this.notificationService.giftReceived(this.giftId).subscribe(success => {
-      console.log(success);
-    },
-    error => {
-      console.log(error);
-    });
+    }
   }
 
   wrapTapped(event, wrap) {

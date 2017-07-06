@@ -1,9 +1,3 @@
-<!--
-  Generated template for the PayloadPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,12 +8,21 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      {{this.giftboxService.getGiftWithID(this.giftId).payloads[0].title}}
-    </ion-card-header>
-    <ion-card-content>
-      {{this.giftboxService.getGiftWithID(this.giftId).payloads[0].content}}
-    </ion-card-content>
-  </ion-card>
+  <ion-slides pager>
+    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
+      <h2>What's inside?</h2>
+      <p>Swipe left to start looking.</p>
+    </ion-slide>
+    <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads">
+      <h2>{{payload.title}}</h2>
+      <p [innerHTML]="payload.content"></p>
+    </ion-slide>
+    <ion-slide>
+      <h2>That's everything!</h2>
+      <p>You can swipe back for another look, or come back to this gift at any time from your Giftbox.</p>
+      <button ion-button (click)="leaveGift()">
+        Put this gift back in my Giftbox
+      </button>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

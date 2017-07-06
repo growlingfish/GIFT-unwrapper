@@ -18,29 +18,35 @@ export class PayloadPage {
     this.giftId = navParams.get('giftId');
     this.payloadId = navParams.get('payloadId');
 
-    this.http.get(this.globalVar.getUnwrappedURL(this.giftId))
-      .subscribe(data => {
-        console.log(data);
+    if (!this.giftboxService.getGiftWithID(this.giftId).unwrapped) {
+      this.http.get(this.globalVar.getUnwrappedURL(this.giftId))
+        .subscribe(data => {
+          console.log(data);
+        },
+        function (error) {
+          console.log(error);
+        });
+      this.notificationService.giftUnwrapped(this.giftId).subscribe(success => {
+        console.log(success);
       },
-      function (error) {
+      error => {
         console.log(error);
       });
-    this.notificationService.giftUnwrapped(this.giftId).subscribe(success => {
-      console.log(success);
-    },
-    error => {
-      console.log(error);
-    });
+    }
   }
 
   ionViewWillLeave() {
-    if (!this.giftboxService.getGiftWithID(this.giftId).experienced) {
-      this.giftboxService.getGiftWithID(this.giftId).experienced = true;
+    if (!this.giftboxService.getGiftWithID(this.giftId).unwrapped) {
+      this.giftboxService.getGiftWithID(this.giftId).unwrapped = true;
       let modal = this.modalCtrl.create(RespondPage, {
         giftId: this.giftId,
         wrapId: this.payloadId
       });
       modal.present();
     }
+  }
+
+  leaveGift() {
+    this.nav.popToRoot();
   }
 }

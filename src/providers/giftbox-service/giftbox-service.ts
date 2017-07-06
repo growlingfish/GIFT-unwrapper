@@ -10,18 +10,25 @@ export class Gift {
   sender: string;
   wraps: Array<Wrap>;
   payloads: Array<Payload>;
-  experienced: boolean;
+  received: boolean;
+  unwrapped: boolean;
+  responded: boolean;
 
-  constructor(id: number, title: string, sender: string) {
+  constructor(id: number, title: string, sender: string, received: boolean, unwrapped: boolean, responded: boolean) {
     this.id = id;
     this.title = title;
     this.sender = sender;
     this.wraps = [];
     this.payloads = [];
-    this.experienced = false;
+    this.received = received;
+    this.unwrapped = unwrapped;
+    this.responded = responded;
   }
 
   public isWrapped () {
+    if (this.unwrapped) {
+      return false;
+    }
     for (let i = 0; i < this.wraps.length; i++) {
       if (!this.wraps[i].isComplete()) {
         return true;
@@ -102,7 +109,10 @@ export class GiftboxServiceProvider {
             var gift = new Gift(
               data.gifts[i].ID,
               data.gifts[i].post_title,
-              sender.user_nicename
+              sender.user_nicename,
+              data.gifts[i].status['received'],
+              data.gifts[i].status['unwrapped'],
+              data.gifts[i].status['responded']
             );
             for (let j = 0; j < data.gifts[i].wraps.length; j++) {
               var wrap = new Wrap(

@@ -104,7 +104,7 @@ export class NotificationServiceProvider {
         if (this.checkTypeCode('responseToGift')) {
           this.http.get(this.globalVar.getRespondedURL(giftId))
             .subscribe(data => {
-                console.log(data);      
+                this.giftboxService.getGiftWithID(giftId).responded = true;    
               },
               function (error) {
                 console.log(error);
