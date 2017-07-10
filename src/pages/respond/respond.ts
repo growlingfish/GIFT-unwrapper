@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading, ViewController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
@@ -13,7 +13,7 @@ export class RespondPage {
   responseText: string;
   loading: Loading;
 
-  constructor(public nav: NavController, public navParams: NavParams, public viewCtrl: ViewController, private giftboxService: GiftboxServiceProvider, public loadingCtrl: LoadingController, private notificationService: NotificationServiceProvider) {
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, public loadingCtrl: LoadingController, private notificationService: NotificationServiceProvider) {
     this.giftId = navParams.get('giftId');
     this.payloadId = navParams.get('payloadId');
   }

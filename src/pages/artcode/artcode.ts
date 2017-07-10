@@ -24,21 +24,27 @@ export class ArtcodePage {
               { codes: [this.getChallenge().task] }
             ]
           }, code => {
-            console.log(code);
-            this.getChallenge().completeChallenge();
-            let alert = this.alertCtrl.create({
-              title: 'Success!',
-              subTitle: "Well done - you've scanned " + this.giftboxService.getGiftWithID(this.giftId).sender + "'s Artcode.",
-              buttons: [
-                {
-                  text: 'OK',
-                  handler: data => {
-                    this.nav.pop();
+            if (code == this.getChallenge().task) {
+              this.getChallenge().completeChallenge();
+              let alert = this.alertCtrl.create({
+                title: 'Success!',
+                subTitle: "Well done - you've scanned " + this.giftboxService.getGiftWithID(this.giftId).sender + "'s Artcode.",
+                buttons: [
+                  {
+                    text: 'OK',
+                    handler: data => {
+                      this.nav.pop();
+                    }
                   }
-                }
-              ]
-            });
-            alert.present(prompt);
+                ]
+              });
+              alert.present(prompt);
+            } else if (code == "BACK") {
+              this.nav.pop();
+            } else {
+              console.log(code);
+              this.nav.pop();
+            }
           });
         } else {
           let alert = this.alertCtrl.create({
