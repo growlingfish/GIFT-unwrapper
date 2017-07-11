@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { RespondPage } from '../respond/respond';
+import { GiftboxPage } from '../giftbox/giftbox';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import { Http } from '@angular/http';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
@@ -47,6 +48,6 @@ export class PayloadPage {
   }
 
   leaveGift() {
-    this.nav.popToRoot();
+    this.nav.setRoot(GiftboxPage);
   }
 }

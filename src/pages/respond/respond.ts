@@ -21,12 +21,10 @@ export class RespondPage {
   declineResponse () {
     this.notificationService.declineResponse(this.giftId).subscribe(success => {
       console.log(success);
-      this.loading.dismiss();
       this.nav.pop();
     },
     error => {
       console.log(error);
-      this.loading.dismiss();
       this.nav.pop();
     });
   }

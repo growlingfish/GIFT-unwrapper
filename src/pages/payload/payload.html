@@ -1,11 +1,8 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Payload</ion-title>
+    <ion-title>Your gift</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ion-slides pager>
@@ -13,11 +10,14 @@
       <h2>What's inside?</h2>
       <p>Swipe left to start looking.</p>
     </ion-slide>
-    <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads">
+    <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads; let i = index; let last = last">
       <h2>{{payload.title}}</h2>
       <p [innerHTML]="payload.content"></p>
+      <button ion-button (click)="leaveGift()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).unwrapped && last">
+        Put this gift back in my Giftbox
+      </button>
     </ion-slide>
-    <ion-slide>
+    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>That's everything!</h2>
       <p>You can swipe back for another look, or come back to this gift at any time from your Giftbox.</p>
       <button ion-button (click)="leaveGift()">

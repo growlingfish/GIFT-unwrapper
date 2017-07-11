@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { PayloadPage } from '../payload/payload';
 import { WrapPage } from '../wrap/wrap';
+import { GiftcardPage } from '../giftcard/giftcard';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import { Http } from '@angular/http';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
@@ -64,5 +65,11 @@ export class GiftPage {
         giftId: this.giftId
       });
     }
+  }
+
+  showGiftcard () {
+    this.nav.push(GiftcardPage, {
+      giftId: this.giftId
+    });
   }
 }

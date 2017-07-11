@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Your gift</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-slides pager>
+    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
+      <h2>Welcome to your gift</h2>
+      <p>Swipe left to look at your giftcard.</p>
+    </ion-slide>
+    <ion-slide>
+      <h2>{{this.giftboxService.getGiftWithID(this.giftId).giftcard.title}}</h2>
+      <p [innerHTML]="this.giftboxService.getGiftWithID(this.giftId).giftcard.content"></p>
+      <p><em>From {{this.giftboxService.getGiftWithID(this.giftId).sender}}</em></p>
+      <button ion-button (click)="leaveGiftcard()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).received">
+        OK
+      </button>
+    </ion-slide>
+    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
+      <h2>Unwrap me</h2>
+      <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set challenges that you must complete before you can look inside your gift.</p>
+      <p>Tap "Start" to see what you need to do.</p>
+      <button ion-button (click)="leaveGiftcard()">
+        Start
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

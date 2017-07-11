@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { GiftPage } from '../gift/gift';
+import { GiftcardPage } from '../giftcard/giftcard';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../providers/auth-service/auth-service';
@@ -41,9 +42,15 @@ export class GiftboxPage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(GiftPage, {
-      giftId: item.id
-    });
+    if (this.giftboxService.getGiftWithID(item.id).hasGiftcard()) {
+      this.navCtrl.push(GiftcardPage, {
+        giftId: item.id
+      });
+    } else {
+      this.navCtrl.setRoot(GiftPage, {
+        giftId: item.id
+      });
+    }
   }
 
   showLoading() {

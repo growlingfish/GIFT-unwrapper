@@ -10,9 +10,10 @@ export class Gift {
   sender: string;
   wraps: Array<Wrap>;
   payloads: Array<Payload>;
-  received: boolean;
-  unwrapped: boolean;
-  responded: boolean;
+  giftcard: Giftcard;
+  received: boolean; // set when GiftPage is opened
+  unwrapped: boolean; // set when PayloadPage is left
+  responded: boolean; // set if/when response is sent via RespondPage
 
   constructor(id: number, title: string, sender: string, received: boolean, unwrapped: boolean, responded: boolean) {
     this.id = id;
@@ -20,6 +21,7 @@ export class Gift {
     this.sender = sender;
     this.wraps = [];
     this.payloads = [];
+    this.giftcard = null;
     this.received = received;
     this.unwrapped = unwrapped;
     this.responded = responded;
@@ -33,6 +35,13 @@ export class Gift {
       if (!this.wraps[i].isComplete()) {
         return true;
       }
+    }
+    return false;
+  }
+
+  public hasGiftcard () {
+    if (this.giftcard !== null) {
+      return true;
     }
     return false;
   }
@@ -91,6 +100,18 @@ class Challenge {
   }
 }
 
+export class Giftcard {
+  id: number;
+  title: string;
+  content: string;
+
+  constructor (id: number, title: string, content: string) {
+    this.id = id;
+    this.title = title;
+    this.content = content;
+  }
+}
+
 @Injectable()
 export class GiftboxServiceProvider {
 
@@ -146,6 +167,14 @@ export class GiftboxServiceProvider {
                 data.gifts[i].payloads[j].post_content
               );
               gift.payloads.push(payload);
+            }
+            for (let j = 0; j < data.gifts[i].giftcards.length; j++) {
+              var giftcard = new Giftcard(
+                data.gifts[i].giftcards[j].ID,
+                data.gifts[i].giftcards[j].post_title,
+                data.gifts[i].giftcards[j].post_content
+              );
+              gift.giftcard = giftcard;
             }
             this.gifts.push(gift);
           }

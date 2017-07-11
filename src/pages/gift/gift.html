@@ -24,4 +24,9 @@
       </button>
     </ion-list>
   </ng-container>
+
+  <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).hasGiftcard()">
+    <p>You can also look back at the giftcard that was sent with this gift.</p>
+    <button ion-button success (click)="showGiftcard()">Show my giftcard</button>
+  </ng-container>
 </ion-content>
