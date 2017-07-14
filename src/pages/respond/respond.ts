@@ -50,4 +50,8 @@ export class RespondPage {
     });
     this.loading.present();
   }
+
+  responseComplete() {
+    return typeof(this.responseText) != 'undefined' && this.responseText.length > 0;
+  }
 }
