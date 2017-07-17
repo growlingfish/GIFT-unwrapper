@@ -36,6 +36,10 @@ export class PayloadPage {
     }
   }
 
+  multipart () {
+    return this.giftboxService.getGiftWithID(this.giftId).payloads.length > 1;
+  }
+
   ionViewWillLeave() {
     if (!this.giftboxService.getGiftWithID(this.giftId).unwrapped) {
       this.giftboxService.getGiftWithID(this.giftId).unwrapped = true;
