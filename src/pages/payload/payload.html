@@ -11,7 +11,7 @@
       <p>Swipe left to start looking.</p>
     </ion-slide>
     <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads; let i = index; let last = last">
-      <h2 *ngIf="multipart()">Part {{i}}</h2>
+      <h2 *ngIf="multipart()">Part {{i + 1}}</h2>
       <p [innerHTML]="payload.content"></p>
       <button ion-button (click)="leaveGift()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).unwrapped && last">
         Put this gift back in my Giftbox
