@@ -21,7 +21,7 @@
     <button ion-button color="danger" (click)="declineResponse()">
       Cancel
     </button>
-    <button ion-button [disabled]="responseComplete()" (click)="sendResponse()">
+    <button ion-button [disabled]="!responseComplete()" (click)="sendResponse()">
       Send
     </button>
   </p>

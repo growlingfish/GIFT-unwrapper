@@ -32,6 +32,7 @@ export class Gift {
       return false;
     }
     for (let i = 0; i < this.wraps.length; i++) {
+      console.log(this.wraps[i]);
       if (!this.wraps[i].isComplete()) {
         return true;
       }
@@ -131,9 +132,9 @@ export class GiftboxServiceProvider {
               data.gifts[i].ID,
               data.gifts[i].post_title,
               sender.user_nicename,
-              data.gifts[i].status['received'],
-              data.gifts[i].status['unwrapped'],
-              data.gifts[i].status['responded']
+              (data.gifts[i].status['received'] === true || data.gifts[i].status['received'] == 'true'),
+              (data.gifts[i].status['unwrapped'] === true || data.gifts[i].status['unwrapped'] == 'true'),
+              (data.gifts[i].status['responded'] === true || data.gifts[i].status['responded'] == 'true')
             );
             for (let j = 0; j < data.gifts[i].wraps.length; j++) {
               var wrap = new Wrap(

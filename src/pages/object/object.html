@@ -16,9 +16,7 @@
       <ion-card-title>
         {{this.getExhibit().post_title}}
       </ion-card-title>
-      <p>
-        {{this.getExhibit().post_content}}
-      </p>
+      <p [innerHTML]="this.getExhibit().post_content"></p>
     </ion-card-content>
   </ion-card>
   <p>
