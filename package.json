@@ -27,7 +27,6 @@
         "@ionic/cloud-angular": "^0.12.0",
         "@ionic/storage": "2.0.1",
         "artcodes-scanner": "git+https://github.com/horizon-institute/artcodes-cordova.git",
-        "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
@@ -72,7 +71,6 @@
             }
         },
         "platforms": [
-            "android",
             "ios"
         ]
     }

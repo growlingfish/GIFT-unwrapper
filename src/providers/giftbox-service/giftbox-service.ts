@@ -32,7 +32,6 @@ export class Gift {
       return false;
     }
     for (let i = 0; i < this.wraps.length; i++) {
-      console.log(this.wraps[i]);
       if (!this.wraps[i].isComplete()) {
         return true;
       }
