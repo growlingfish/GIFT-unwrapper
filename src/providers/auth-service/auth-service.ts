@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
+import { Storage } from '@ionic/storage';
 
 export class User {
   name: string;
@@ -18,10 +19,9 @@ export class User {
 
 @Injectable()
 export class AuthServiceProvider {
-
   currentUser: User;
 
-  constructor (private globalVar: GlobalVarProvider, private http: Http) {}
+  constructor (private globalVar: GlobalVarProvider, private http: Http, private storage: Storage) {}
 
   public login(credentials) {
     if (credentials.email === null || credentials.password === null) {
@@ -55,6 +55,7 @@ export class AuthServiceProvider {
   public logout() {
     return Observable.create(observer => {
       this.currentUser = null;
+      this.storage.remove('introDone');
       observer.next(true);
       observer.complete();
     });

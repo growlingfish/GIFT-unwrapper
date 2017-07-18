@@ -80,7 +80,7 @@ export class NotificationServiceProvider {
       if (this.checkTypeCode('responseToGift')) {
         let body = new URLSearchParams();
         body.append('type', this.getTypeCode('responseToGift'));
-        body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
+        body.append('giver', this.giftboxService.getGiftWithID(giftId).senderEmail);
         body.append('receiver', this.authService.currentUser.email);
         body.append('decline', 'No reason');
         this.http.post(this.globalVar.getNotificationsBase(), body)
@@ -112,7 +112,7 @@ export class NotificationServiceProvider {
 
           let body = new URLSearchParams();
           body.append('type', this.getTypeCode('responseToGift'));
-          body.append('giver', this.giftboxService.getGiftWithID(giftId).sender);
+          body.append('giver', this.giftboxService.getGiftWithID(giftId).senderEmail);
           body.append('receiver', this.authService.currentUser.email);
           body.append('responseText', responseText);
           this.http.post(this.globalVar.getNotificationsBase(), body)

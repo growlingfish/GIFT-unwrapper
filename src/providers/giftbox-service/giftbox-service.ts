@@ -8,6 +8,7 @@ export class Gift {
   id: number;
   title: string;
   sender: string;
+  senderEmail: string;
   wraps: Array<Wrap>;
   payloads: Array<Payload>;
   giftcard: Giftcard;
@@ -15,10 +16,11 @@ export class Gift {
   unwrapped: boolean; // set when PayloadPage is left
   responded: boolean; // set if/when response is sent via RespondPage
 
-  constructor(id: number, title: string, sender: string, received: boolean, unwrapped: boolean, responded: boolean) {
+  constructor(id: number, title: string, sender: string, senderEmail: string, received: boolean, unwrapped: boolean, responded: boolean) {
     this.id = id;
     this.title = title;
     this.sender = sender;
+    this.senderEmail = senderEmail;
     this.wraps = [];
     this.payloads = [];
     this.giftcard = null;
@@ -131,6 +133,7 @@ export class GiftboxServiceProvider {
               data.gifts[i].ID,
               data.gifts[i].post_title,
               sender.user_nicename,
+              sender.user_email,
               (data.gifts[i].status['received'] === true || data.gifts[i].status['received'] == 'true'),
               (data.gifts[i].status['unwrapped'] === true || data.gifts[i].status['unwrapped'] == 'true'),
               (data.gifts[i].status['responded'] === true || data.gifts[i].status['responded'] == 'true')

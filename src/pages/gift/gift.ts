@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
+import { GiftboxPage } from '../giftbox/giftbox';
 import { PayloadPage } from '../payload/payload';
 import { WrapPage } from '../wrap/wrap';
 import { GiftcardPage } from '../giftcard/giftcard';
@@ -70,5 +71,9 @@ export class GiftPage {
     this.nav.push(GiftcardPage, {
       giftId: this.giftId
     });
+  }
+
+  leaveGift () {
+    this.nav.setRoot(GiftboxPage);
   }
 }

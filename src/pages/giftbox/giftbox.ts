@@ -17,7 +17,7 @@ export class GiftboxPage {
   currentUser: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private auth: AuthServiceProvider, private loadingCtrl: LoadingController) {
-    this.currentUser = auth.getUserInfo();
+    this.currentUser = this.auth.getUserInfo();
 
     this.showLoading()
     this.giftboxService.loadGifts(this.currentUser.id).subscribe(available => {
@@ -25,6 +25,7 @@ export class GiftboxPage {
         this.items = [];
         var gifts = giftboxService.getGifts();
         for (let i = 0; i < gifts.length; i++) {
+          console.log(gifts[i].unwrapped);
           this.items.push({
             title: gifts[i].title,
             sender: 'from ' + gifts[i].sender,

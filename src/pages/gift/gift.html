@@ -1,11 +1,8 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>{{this.giftboxService.getGiftWithID(this.giftId).title}}</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
@@ -25,8 +22,15 @@
     </ion-list>
   </ng-container>
 
+  <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
+    <button ion-button color="danger" (click)="leaveGift()">
+      Back to Giftbox
+    </button>
+  </ng-container>
+<!--
   <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).hasGiftcard()">
     <p>You can also look back at the giftcard that was sent with this gift.</p>
     <button ion-button success (click)="showGiftcard()">Show my giftcard</button>
   </ng-container>
+-->
 </ion-content>
