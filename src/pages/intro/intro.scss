@@ -1,3 +1,10 @@
 page-intro {
+    ion-content {
+        background: url('../assets/background.jpg');
+        background-size: cover;
+    }
 
+    ion-slide {
+        background: white;
+    }
 }
