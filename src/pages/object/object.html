@@ -7,7 +7,14 @@
 </ion-header>
 
 <ion-content padding>
-  <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} would like you to find this exhibit before unwrapping your gift:</p>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Find this exhibit
+      </ion-card-title>
+      <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} would like you to experience your gift when you have found an exhibit in the museum. Find the object shown below.</div>
+    </ion-card-content>
+  </ion-card>
   <ion-card>
     <ng-container *ngIf="this.getExhibit().post_image">
       <img [src]="this.getExhibit().post_image"/>
@@ -16,15 +23,23 @@
       <ion-card-title>
         {{this.getExhibit().post_title}}
       </ion-card-title>
-      <p [innerHTML]="this.getExhibit().post_content"></p>
+      <div [innerHTML]="this.getExhibit().post_content"></div>
     </ion-card-content>
   </ion-card>
-  <p>
-    <button ion-button color="danger" (click)="failChallenge()">
-      I can't do this right now
-    </button>
-    <button ion-button (click)="completeChallenge()">
-      Found!
-    </button>
-  </p>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Have you found it?
+      </ion-card-title>
+      <div>You need to find the exhibit before you can continue unwrapping the gift. Don't be afraid to ask for help from other visitors or museum staff.</div>
+      <div>
+        <button ion-button color="danger" (click)="failChallenge()">
+          I can't find it
+        </button>
+        <button ion-button (click)="completeChallenge()">
+          Found!
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

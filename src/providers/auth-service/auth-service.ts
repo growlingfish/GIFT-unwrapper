@@ -19,7 +19,7 @@ export class User {
 
 @Injectable()
 export class AuthServiceProvider {
-  currentUser: User;
+  currentUser: User = null;
 
   constructor (private globalVar: GlobalVarProvider, private http: Http, private storage: Storage) {}
 

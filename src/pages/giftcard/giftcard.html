@@ -8,20 +8,20 @@
   <ion-slides pager>
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
       <h2>Welcome to your gift</h2>
-      <p>Swipe left to look at your giftcard.</p>
+      <div>Swipe left to look at your giftcard.</div>
     </ion-slide>
     <ion-slide>
       <h2>{{this.giftboxService.getGiftWithID(this.giftId).title}}</h2>
-      <p [innerHTML]="this.giftboxService.getGiftWithID(this.giftId).giftcard.content"></p>
-      <p><em>From {{this.giftboxService.getGiftWithID(this.giftId).sender}}</em></p>
+      <div [innerHTML]="this.giftboxService.getGiftWithID(this.giftId).giftcard.content"></div>
+      <div><em>From {{this.giftboxService.getGiftWithID(this.giftId).sender}}</em></div>
       <button ion-button (click)="leaveGiftcard()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).received">
         OK
       </button>
     </ion-slide>
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
       <h2>Unwrap me</h2>
-      <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set challenges that you must complete before you can look inside your gift.</p>
-      <p>Tap "Start" to see what you need to do.</p>
+      <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set challenges that you must complete before you can look inside your gift.</div>
+      <div>Tap "Start" to see what you need to do.</div>
       <button ion-button (click)="leaveGiftcard()">
         Start
       </button>

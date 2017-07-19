@@ -27,7 +27,8 @@ $colors: (
   primary:    #488aff,
   secondary:  #32db64,
   danger:     #f53d3d,
-  light:      #f4f4f4,
+  //light:      #f4f4f4,
+  light:      rgba(white, 0.8),
   dark:       #222
 );
 

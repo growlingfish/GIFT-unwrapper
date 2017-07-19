@@ -10,6 +10,7 @@ export class GlobalVarProvider {
   mapboxToken: string;
   latitude: number;
   longitude: number;
+  sprint: boolean = true;
 
   constructor() {
     //this.apiBase = "https://gifting.dev/wp-json/gift/v1/";

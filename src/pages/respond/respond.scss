@@ -1,3 +1,14 @@
 page-respond {
+     ion-content {
+        background: url('../assets/background.jpg');
+        background-size: cover;
+    }
 
+    ion-card, ion-card-content, ion-card-content p, .card, .card-md, .card-ios, ion-textarea, ion-item, .item, .item-md, .item-ios {
+        @include alpha-background-color(rgba(white, 0.6), white);
+    }
+
+    ion-card button {
+        margin-top: 15px !important;
+    }
 }

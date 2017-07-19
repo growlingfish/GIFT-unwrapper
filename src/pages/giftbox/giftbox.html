@@ -7,8 +7,41 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content padding>
+  <ion-card *ngIf="items.length > 0 && this.giftboxService.getGiftWithID(items[0].id).isWrapped()" (click)="itemTapped($event, items[0])">
+    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+    <ion-card-content>
+      <ion-card-title>
+        You have an unopened gift
+      </ion-card-title>
+      <div>
+        Tap here to read the gift card.
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="items.length == 0">
+    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+    <ion-card-content>
+      <ion-card-title>
+        Sorry!
+      </ion-card-title>
+      <div>
+        You don't have any gifts.
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="items.length > 0 && !this.giftboxService.getGiftWithID(items[0].id).isWrapped()" (click)="logout()">
+    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+    <ion-card-content>
+      <ion-card-title>
+        All gifts unwrapped
+      </ion-card-title>
+      <div>
+        Outro text.
+      </div>
+    </ion-card-content>
+  </ion-card>
+<!--  <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-left></ion-icon>
       {{item.title}}
@@ -16,5 +49,6 @@
         {{item.sender}}
       </div>
     </button>
-  </ion-list>
+  </ion-list> -->
+
 </ion-content>

@@ -6,10 +6,10 @@
 
 <ion-content padding>
   <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
-    <p>This Gift is still wrapped! Tap any incomplete challenges below to keep unwrapping the Gift.</p>
+    <div>This Gift is still wrapped! Tap any incomplete challenges below to keep unwrapping the Gift.</div>
   </ng-container>
   <ng-container *ngIf="!this.giftboxService.getGiftWithID(this.giftId).isWrapped()">
-    <p>You have unwrapped{{this.giftboxService.getGiftWithID(this.giftId).responded ? ' and responded to' : ''}} this gift.</p>
+    <div>You have unwrapped{{this.giftboxService.getGiftWithID(this.giftId).responded ? ' and responded to' : ''}} this gift.</div>
     <button ion-button success (click)="this.viewPayloads()">Look inside your Gift</button>
   </ng-container>
 
@@ -29,7 +29,7 @@
   </ng-container>
 <!--
   <ng-container *ngIf="this.giftboxService.getGiftWithID(this.giftId).hasGiftcard()">
-    <p>You can also look back at the giftcard that was sent with this gift.</p>
+    <div>You can also look back at the giftcard that was sent with this gift.</div>
     <button ion-button success (click)="showGiftcard()">Show my giftcard</button>
   </ng-container>
 -->

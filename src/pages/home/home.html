@@ -8,9 +8,13 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Gifting.Digital</h3>
-
-  <p>Hello {{this.currentUser.name}}</p>
-
-  <button ion-button secondary (click)="openGiftbox()">Open your Giftbox</button>
+  <ion-card (click)="openGiftbox()">
+    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+    <ion-card-content>
+      <ion-card-title>
+        Your gifts
+      </ion-card-title>
+      Hello {{this.auth.currentUser.name}}. Tap here to check for gifts that have been sent to you.
+    </ion-card-content>
+  </ion-card>
 </ion-content>

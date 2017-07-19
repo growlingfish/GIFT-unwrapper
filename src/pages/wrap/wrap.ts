@@ -8,6 +8,7 @@ import { KeyPage } from '../key/key';
 import { PlacePage } from '../place/place';
 import { DatePage } from '../date/date';
 import { ObjectPage } from '../object/object';
+import { PayloadPage } from '../payload/payload';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
@@ -103,6 +104,23 @@ export class WrapPage {
     }
   }
 
+  sprint_getHint (type) {
+    switch (type) {
+      case 'date':
+        return 'You need to wait until a certain date before you can unwrap the gift.';
+      case 'key':
+        return 'You need to enter a secret keycode or passphrase to unwrap the gift.';
+      case 'artcode':
+        return "You need to use your mobile's camera to scan an Artcode to unwrap the gift.";
+      case 'place':
+        return 'You need to travel to a location before you can unwrap the gift.';
+      case 'personal':
+        return this.giftboxService.getGiftWithID(this.giftId).sender + ' has a personal request that they would like you to fulfill before unwrapping the gift.';
+      case 'object':
+        return 'You need to find an exhibit in the museum before unwrapping the gift.';
+    }
+  }
+
   getIcon (type) {
     switch (type) {
       case 'date':
@@ -117,6 +135,23 @@ export class WrapPage {
         return 'heart';
       case 'object':
         return 'cube';
+    }
+  }
+
+  getImage (type) {
+    switch (type) {
+      case 'date':
+        return 'http://via.placeholder.com/350x100';
+      case 'key':
+        return 'http://via.placeholder.com/350x100';
+      case 'artcode':
+        return 'http://via.placeholder.com/350x100';
+      case 'place':
+        return 'http://via.placeholder.com/350x100';
+      case 'personal':
+        return 'http://via.placeholder.com/350x100';
+      case 'object':
+        return 'http://via.placeholder.com/350x100';
     }
   }
 
@@ -167,7 +202,13 @@ export class WrapPage {
   }
 
   unwrap () {
-    this.nav.pop();
+    if (this.globalVar.sprint) {
+      this.nav.push(PayloadPage, {
+        giftId: this.giftId
+      });
+    } else {
+      this.nav.pop();
+    }
   }
 
   ionViewWillLeave() {

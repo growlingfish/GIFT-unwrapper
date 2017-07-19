@@ -8,20 +8,21 @@
   <ion-slides pager>
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>What's inside?</h2>
-      <p>Swipe left to start looking.</p>
+      <div>Swipe left to start looking.</div>
     </ion-slide>
     <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads; let i = index; let last = last">
       <h2 *ngIf="multipart()">Part {{i + 1}}</h2>
-      <p [innerHTML]="payload.content"></p>
+      <div [innerHTML]="payload.content"></div>
       <button ion-button (click)="leaveGift()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).unwrapped && last">
-        Put this gift back in my Giftbox
+        Done
       </button>
     </ion-slide>
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>That's everything!</h2>
-      <p>You can swipe back for another look, or come back to this gift at any time from your Giftbox.</p>
+      <div>You have finished unwrapping and experiencing your gift.</div>
+      <div>You can swipe back for another look, or tap 'Done'.</div>
       <button ion-button (click)="leaveGift()">
-        Put this gift back in my Giftbox
+        Done
       </button>
     </ion-slide>
   </ion-slides>

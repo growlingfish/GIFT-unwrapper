@@ -1,25 +1,58 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>{{this.giftboxService.getWrapWithID(this.giftId, this.wrapId).title}}</ion-title>
+    <ion-title>Challenges</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
-  <ng-container *ngIf="this.giftboxService.getWrapWithID(this.giftId, this.wrapId).isComplete()">
-    <p>You have now completed this set of challenges.</p>
+<!--  <ng-container *ngIf="this.giftboxService.getWrapWithID(this.giftId, this.wrapId).isComplete()">
+    <div>You have now completed this set of challenges.</div>
     <button ion-button (click)="unwrap()">
       Finish unwrapping
     </button>
+  </ng-container> -->
+  <ion-card *ngIf="this.giftboxService.getGiftWithID(this.giftId).wraps[0].isComplete()" (click)="unwrap()">
+    <ion-card-content>
+        <ion-card-title>
+          Get ready to unwrap ...
+        </ion-card-title>
+        <div>You have done everything that you needed to do to unwrap the gift. Tap here to see what's inside.</div>
+    </ion-card-content>
+  </ion-card>
+  <ng-container *ngIf="!this.giftboxService.getGiftWithID(this.giftId).wraps[0].isComplete()">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+          Additional Challenges
+        </ion-card-title>
+        <div>
+          {{this.giftboxService.getGiftWithID(this.giftId).sender}} has set you some more challenges that you must complete to unwrap your gift. Tap on any of the challenges below.
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ng-container *ngFor="let challenge of this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges">
+      <ion-card *ngIf="!challenge.completed" (click)="challengeTapped($event, challenge)">
+        <img [src]="this.getImage(challenge.type)" />
+        <ion-card-content>
+          <ion-card-title>
+            {{this.getHint(challenge.type)}} 
+          </ion-card-title>
+          <div>
+            {{this.sprint_getHint(challenge.type)}}
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
   </ng-container>
-  <ng-container *ngIf="!this.giftboxService.getWrapWithID(this.giftId, this.wrapId).isComplete()">
-    <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set you the following challenges that you must complete to unwrap your gift:</p>
+
+<!--  <ng-container *ngIf="!this.giftboxService.getWrapWithID(this.giftId, this.wrapId).isComplete()">
+    <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set you the following challenges that you must complete to unwrap your gift:</div>
     <ion-list>
       <button ion-item *ngFor="let challenge of this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges" (click)="challengeTapped($event, challenge)">
         <ion-icon [name]="challenge.completed ? 'checkmark-circle' : 'close-circle'" [color]="challenge.completed ? 'secondary' : 'danger'" item-left></ion-icon>
         {{this.getHint(challenge.type)}}
       </button>
     </ion-list>
-  </ng-container>
+  </ng-container> -->
 </ion-content>

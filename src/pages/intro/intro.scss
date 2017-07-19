@@ -5,6 +5,11 @@ page-intro {
     }
 
     ion-slide {
-        background: white;
+        @include alpha-background-color(rgba(white, 0.8), white);
+        padding: 40px;
+    }
+
+    ion-slide button {
+        margin-top: 15px;
     }
 }

@@ -8,16 +8,16 @@
 
 
 <ion-content padding>
-  <p>Do you know the keycode?</p>
+  <div>Do you know the keycode?</div>
   <ion-item>
     <ion-textarea placeholder="Enter the code" [(ngModel)]="codeText"></ion-textarea>
   </ion-item>
-  <p>
+  <div>
     <button ion-button color="danger" (click)="failChallenge()">
       I can't do this right now
     </button>
     <button ion-button (click)="tryChallenge()">
       Submit
     </button>
-  </p>
+  </div>
 </ion-content>

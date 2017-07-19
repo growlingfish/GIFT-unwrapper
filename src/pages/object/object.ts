@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
+import { GiftboxPage } from '../../pages/giftbox/giftbox';
+import { WrapPage } from '../../pages/wrap/wrap';
+import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
 @Component({
   selector: 'page-object',
@@ -10,7 +13,7 @@ export class ObjectPage {
   giftId: number;
   wrapId: number;
 
-  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider) {
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private globalVar: GlobalVarProvider) {
     this.giftId = navParams.get('giftId');
     this.wrapId = navParams.get('wrapId');
   }
@@ -28,7 +31,11 @@ export class ObjectPage {
   }
 
   failChallenge () {
-    this.nav.pop();
+    if (this.globalVar.sprint) {
+      this.nav.setRoot(GiftboxPage);
+    } else {
+      this.nav.pop();
+    }
   }
 
   completeChallenge () {
@@ -37,6 +44,13 @@ export class ObjectPage {
         this.giftboxService.getWrapWithID(this.giftId, this.wrapId).challenges[i].completeChallenge();
       }
     }
-    this.nav.pop();
+    if (this.globalVar.sprint) {
+      this.nav.setRoot(WrapPage, {
+        giftId: this.giftId,
+        wrapId: this.giftboxService.getGiftWithID(this.giftId).wraps[0].id
+      });
+    } else {
+      this.nav.pop();
+    }
   }
 }

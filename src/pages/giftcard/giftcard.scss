@@ -1,3 +1,15 @@
 page-giftcard {
+    ion-content {
+        background: url('../assets/background.jpg');
+        background-size: cover;
+    }
 
+    ion-slide {
+        @include alpha-background-color(rgba(white, 0.8), white);
+        padding: 40px;
+    }
+
+    ion-slide button {
+        margin-top: 15px;
+    }
 }

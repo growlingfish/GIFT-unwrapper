@@ -47,6 +47,18 @@ export class Gift {
     }
     return false;
   }
+
+  /* For Sprint */
+  public sprint_HasObject () {
+    if (this.wraps.length > 0) {
+      for (let i = 0; i < this.wraps[0].challenges.length; i++) {
+        if (this.wraps[0].challenges[i].type == 'object') {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
 
 export class Wrap {

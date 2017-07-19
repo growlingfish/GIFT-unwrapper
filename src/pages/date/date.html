@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content padding>
-  <p>{{this.giftboxService.getGiftWithID(this.giftId).sender}} wants you to wait until {{getChallengeDate()}} before you unwrap your gift.</p>
-  <p>
+  <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} wants you to wait until {{getChallengeDate()}} before you unwrap your gift.</div>
+  <div>
     <button ion-button color="danger" (click)="failChallenge()">
       OK
     </button>
-  </p>
+  </div>
 </ion-content>

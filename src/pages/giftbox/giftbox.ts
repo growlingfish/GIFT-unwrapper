@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { GiftPage } from '../gift/gift';
 import { GiftcardPage } from '../giftcard/giftcard';
+import { LogoutPage } from '../logout/logout';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../providers/auth-service/auth-service';
@@ -13,7 +14,7 @@ import { User } from '../../providers/auth-service/auth-service';
 export class GiftboxPage {
   loading: Loading;
   icons: string[];
-  items: Array<{title: string, sender: string, icon: string, id: number}>;
+  items: Array<{title: string, sender: string, icon: string, id: number}> = [];
   currentUser: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private auth: AuthServiceProvider, private loadingCtrl: LoadingController) {
@@ -60,5 +61,9 @@ export class GiftboxPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+  }
+
+  logout () {
+    this.navCtrl.push(LogoutPage);
   }
 }

@@ -4,6 +4,7 @@ import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-
 import { GiftboxPage } from '../giftbox/giftbox';
 import { PayloadPage } from '../payload/payload';
 import { WrapPage } from '../wrap/wrap';
+import { ObjectPage } from '../object/object';
 import { GiftcardPage } from '../giftcard/giftcard';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 import { Http } from '@angular/http';
@@ -32,6 +33,14 @@ export class GiftPage {
       },
       error => {
         console.log(error);
+      });
+    }
+
+    /* For Sprint */
+    if (this.giftboxService.getGiftWithID(this.giftId).sprint_HasObject()) {
+      this.nav.push(ObjectPage, {
+        giftId: this.giftId,
+        wrapId: this.giftboxService.getGiftWithID(this.giftId).wraps[0].id
       });
     }
   }

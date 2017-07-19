@@ -13,16 +13,23 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Would you like to respond to {{this.giftboxService.getGiftWithID(this.giftId).sender}}'s gift?</p>
-  <ion-item>
-    <ion-textarea placeholder="Enter a response" [(ngModel)]="responseText"></ion-textarea>
-  </ion-item>
-  <p>
-    <button ion-button color="danger" (click)="declineResponse()">
-      Cancel
-    </button>
-    <button ion-button [disabled]="!responseComplete()" (click)="sendResponse()">
-      Send
-    </button>
-  </p>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        How was it for you?
+      </ion-card-title>
+      <div>Would you like to respond to {{this.giftboxService.getGiftWithID(this.giftId).sender}}'s gift?</div>
+      <ion-item>
+        <ion-textarea placeholder="Enter a response" [(ngModel)]="responseText"></ion-textarea>
+      </ion-item>
+      <div>
+        <button ion-button color="danger" (click)="declineResponse()">
+          Cancel
+        </button>
+        <button ion-button [disabled]="!responseComplete()" (click)="sendResponse()">
+          Send
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
