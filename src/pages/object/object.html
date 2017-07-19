@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Exhibit challenge</ion-title>
+    <ion-title>Find this exhibit</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,15 +15,15 @@
       <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} would like you to experience your gift when you have found a specific exhibit in the museum. Find the object shown below.</div>
     </ion-card-content>
   </ion-card>
-  <ion-card>
+  <ion-card class="exhibit">
+    <ion-item>
+      <h1>{{this.getExhibit().post_title}}</h1>
+    </ion-item>
     <ng-container *ngIf="this.getExhibit().post_image">
       <img [src]="this.getExhibit().post_image"/>
     </ng-container>
     <ion-card-content>
-      <ion-card-title>
-        {{this.getExhibit().post_title}}
-      </ion-card-title>
-      <div [innerHTML]="this.getExhibit().post_content"></div>
+      <p [innerHTML]="this.getExhibit().post_content"></p>
     </ion-card-content>
   </ion-card>
   <ion-card>

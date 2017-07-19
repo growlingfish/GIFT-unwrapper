@@ -3,13 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>GIFT Unwrapper</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card (click)="openGiftbox()">
-    <img src="../assets/callout.jpg"/>
+    <img src="./assets/delivery.jpg"/>
     <ion-card-content>
       <ion-card-title>
         Your gifts
@@ -17,4 +17,11 @@
       Hello {{this.auth.currentUser.name}}. Tap here to check for gifts that have been sent to you.
     </ion-card-content>
   </ion-card>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="./assets/white-icon-circle-text-hor.png"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
 </ion-content>

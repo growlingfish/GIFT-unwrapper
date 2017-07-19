@@ -7,4 +7,12 @@ page-giftbox {
     ion-card, ion-card-content, ion-card-content p, .card, .card-md, .card-ios {
         @include alpha-background-color(rgba(white, 0.6), white);
     }
+
+    .gift {
+        @include alpha-background-color(rgba(white, 1.0), white);
+    }
+
+    .logo-row {
+        margin-top: 20px;
+    }
 }

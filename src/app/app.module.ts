@@ -22,6 +22,7 @@ import { DatePage } from '../pages/date/date';
 import { ObjectPage } from '../pages/object/object';
 import { GiftcardPage } from '../pages/giftcard/giftcard';
 import { IntroPage } from '../pages/intro/intro';
+import { ProfilePage } from '../pages/profile/profile';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -50,7 +51,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     DatePage,
     ObjectPage,
     GiftcardPage,
-    IntroPage
+    IntroPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     DatePage,
     ObjectPage,
     GiftcardPage,
-    IntroPage
+    IntroPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

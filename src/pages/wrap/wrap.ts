@@ -141,17 +141,17 @@ export class WrapPage {
   getImage (type) {
     switch (type) {
       case 'date':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/calendar.jpg';
       case 'key':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/secret.jpg';
       case 'artcode':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/artcode.jpg';
       case 'place':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/place.jpg';
       case 'personal':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/whisper.jpg';
       case 'object':
-        return 'http://via.placeholder.com/350x100';
+        return './assets/exhibit.jpg';
     }
   }
 

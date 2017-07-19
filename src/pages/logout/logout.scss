@@ -7,4 +7,9 @@ page-logout {
     ion-card, ion-card-content, ion-card-content p, .card, .card-md, .card-ios {
         @include alpha-background-color(rgba(white, 0.6), white);
     }
+
+    .logo-row {
+      padding-top: 50px;
+      padding-bottom: 20px;
+    }
 }

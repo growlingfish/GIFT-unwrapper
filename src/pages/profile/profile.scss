@@ -1,4 +1,4 @@
-page-home {
+page-profile {
     ion-content {
         background: url('../assets/background.jpg');
         background-size: cover;
@@ -8,10 +8,11 @@ page-home {
         @include alpha-background-color(rgba(white, 0.6), white);
     }
 
+    .profile {
+        @include alpha-background-color(rgba(white, 1.0), white);
+    }
+
     .logo-row {
-        position: fixed;
-        bottom:20px;
-        left: 0;
-        right: 0;
+        margin-top: 20px;
     }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
+import { ProfilePage } from '../profile/profile';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -56,5 +57,28 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present(prompt);
+  }
+
+  profile () {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: 'You will only receive gifts from strangers.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Carry on',
+          handler: () => {
+            this.nav.setRoot(ProfilePage);
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

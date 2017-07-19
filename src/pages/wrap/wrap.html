@@ -32,7 +32,7 @@
     </ion-card>
 
     <ng-container *ngFor="let challenge of this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges">
-      <ion-card *ngIf="!challenge.completed" (click)="challengeTapped($event, challenge)">
+      <ion-card class="challenge" *ngIf="!challenge.completed" (click)="challengeTapped($event, challenge)">
         <img [src]="this.getImage(challenge.type)" />
         <ion-card-content>
           <ion-card-title>
@@ -45,6 +45,13 @@
       </ion-card>
     </ng-container>
   </ng-container>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="./assets/white-icon-circle-text-hor.png"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
 
 <!--  <ng-container *ngIf="!this.giftboxService.getWrapWithID(this.giftId, this.wrapId).isComplete()">
     <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set you the following challenges that you must complete to unwrap your gift:</div>

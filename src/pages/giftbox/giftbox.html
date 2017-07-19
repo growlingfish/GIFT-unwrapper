@@ -3,13 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Giftbox</ion-title>
+    <ion-title>Your gifts</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ng-container *ngIf="!allGiftsUnwrapped()">
     <ion-card>
+      <img src="./assets/callout.jpg"/>
       <ion-card-content>
         <ion-card-title>
           You have new gifts!
@@ -20,7 +21,7 @@
       </ion-card-content>
     </ion-card>
     <ng-container *ngFor="let item of items">
-      <ion-card *ngIf="this.giftboxService.getGiftWithID(item.id).isWrapped()" (click)="itemTapped($event, item)">
+      <ion-card class="gift" *ngIf="this.giftboxService.getGiftWithID(item.id).isWrapped()" (click)="itemTapped($event, item)">
         <ion-card-content>
           <ion-card-title>
             {{item.title}}
@@ -33,7 +34,7 @@
     </ng-container>
   </ng-container>
   <ion-card *ngIf="items.length == 0">
-    <img src="http://via.placeholder.com/300x100/"/>
+    <img src="./assets/sad.jpg"/>
     <ion-card-content>
       <ion-card-title>
         Sorry!
@@ -44,7 +45,7 @@
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="allGiftsUnwrapped()" (click)="logout()">
-    <img src="http://via.placeholder.com/300x100/"/>
+    <img src="./assets/empty.jpg"/>
     <ion-card-content>
       <ion-card-title>
         All gifts unwrapped
@@ -54,6 +55,13 @@
       </div>
     </ion-card-content>
   </ion-card>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+      <img src="./assets/white-icon-circle-text-hor.png"/>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
 <!--  <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-left></ion-icon>
