@@ -8,19 +8,32 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngIf="items.length > 0 && this.giftboxService.getGiftWithID(items[0].id).isWrapped()" (click)="itemTapped($event, items[0])">
-    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
-    <ion-card-content>
-      <ion-card-title>
-        You have an unopened gift
-      </ion-card-title>
-      <div>
-        Tap here to read the gift card.
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <ng-container *ngIf="!allGiftsUnwrapped()">
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>
+          You have new gifts!
+        </ion-card-title>
+        <div>
+          Tap one of the gifts below to continue.
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ng-container *ngFor="let item of items">
+      <ion-card *ngIf="this.giftboxService.getGiftWithID(item.id).isWrapped()" (click)="itemTapped($event, item)">
+        <ion-card-content>
+          <ion-card-title>
+            {{item.title}}
+          </ion-card-title>
+          <div>
+            Tap here to read the gift card.
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+  </ng-container>
   <ion-card *ngIf="items.length == 0">
-    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+    <img src="http://via.placeholder.com/300x100/"/>
     <ion-card-content>
       <ion-card-title>
         Sorry!
@@ -30,8 +43,8 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="items.length > 0 && !this.giftboxService.getGiftWithID(items[0].id).isWrapped()" (click)="logout()">
-    <img src="http://via.placeholder.com/300x100/ffffff/000000"/>
+  <ion-card *ngIf="allGiftsUnwrapped()" (click)="logout()">
+    <img src="http://via.placeholder.com/300x100/"/>
     <ion-card-content>
       <ion-card-title>
         All gifts unwrapped

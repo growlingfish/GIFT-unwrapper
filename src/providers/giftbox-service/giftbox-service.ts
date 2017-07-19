@@ -130,8 +130,11 @@ export class Giftcard {
 export class GiftboxServiceProvider {
 
   gifts: Array<Gift>;
+  currentGift: number;
 
-  constructor(private globalVar: GlobalVarProvider, public http: Http) {}
+  constructor(private globalVar: GlobalVarProvider, public http: Http) {
+    this.currentGift = 0;
+  }
 
   public loadGifts (email) {
     return Observable.create(observer => {
@@ -150,6 +153,9 @@ export class GiftboxServiceProvider {
               (data.gifts[i].status['unwrapped'] === true || data.gifts[i].status['unwrapped'] == 'true'),
               (data.gifts[i].status['responded'] === true || data.gifts[i].status['responded'] == 'true')
             );
+            if (!gift.unwrapped) {
+              this.currentGift = gift.id;
+            }
             for (let j = 0; j < data.gifts[i].wraps.length; j++) {
               var wrap = new Wrap(
                 data.gifts[i].wraps[j].ID,

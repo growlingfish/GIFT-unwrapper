@@ -66,4 +66,13 @@ export class GiftboxPage {
   logout () {
     this.navCtrl.push(LogoutPage);
   }
+
+  allGiftsUnwrapped() {
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.giftboxService.getGiftWithID(this.items[i].id).isWrapped()) {
+        return false;
+      }
+    }
+    return true; 
+  }
 }

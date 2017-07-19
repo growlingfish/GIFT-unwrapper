@@ -1,23 +1,26 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Keycode</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <div>Do you know the keycode?</div>
-  <ion-item>
-    <ion-textarea placeholder="Enter the code" [(ngModel)]="codeText"></ion-textarea>
-  </ion-item>
-  <div>
-    <button ion-button color="danger" (click)="failChallenge()">
-      I can't do this right now
-    </button>
-    <button ion-button (click)="tryChallenge()">
-      Submit
-    </button>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Do you know the keycode?
+      </ion-card-title>
+      <ion-item>
+        <ion-textarea placeholder="Enter the code" [(ngModel)]="codeText"></ion-textarea>
+      </ion-item>
+      <div>
+        <button ion-button color="danger" (click)="failChallenge()">
+          I can't do this right now
+        </button>
+        <button ion-button (click)="tryChallenge()">
+          Submit
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

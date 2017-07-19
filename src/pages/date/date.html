@@ -1,16 +1,21 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Date</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
-  <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} wants you to wait until {{getChallengeDate()}} before you unwrap your gift.</div>
-  <div>
-    <button ion-button color="danger" (click)="failChallenge()">
-      OK
-    </button>
-  </div>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Is it time?
+      </ion-card-title>
+      <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} wants you to wait until {{getChallengeDate()}} before you unwrap your gift.</div>
+      <div>
+        <button ion-button color="danger" (click)="failChallenge()">
+          OK
+        </button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
