@@ -8,15 +8,17 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card (click)="openGiftbox()">
-    <img src="./assets/delivery.jpg"/>
-    <ion-card-content>
-      <ion-card-title>
-        Your gifts
-      </ion-card-title>
-      Hello {{this.auth.currentUser.name}}. Tap here to check for gifts that have been sent to you.
-    </ion-card-content>
-  </ion-card>
+  <ion-row>
+    <ion-card (click)="openGiftbox()">
+      <img src="./assets/delivery.jpg"/>
+      <ion-card-content>
+        <ion-card-title>
+          Your gifts
+        </ion-card-title>
+        Hello {{this.auth.currentUser.name}}. Tap here to check for gifts that have been sent to you.
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
   <ion-row class="logo-row">
     <ion-col></ion-col>
     <ion-col width-67>

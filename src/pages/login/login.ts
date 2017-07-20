@@ -21,10 +21,6 @@ export class LoginPage {
     );  
   }
 
-  public createAccount() {
-    console.log("Registration?");
-  }
-
   public login() {
     this.showLoading()
     this.storage.set('loginEmail', this.registerCredentials.email);
