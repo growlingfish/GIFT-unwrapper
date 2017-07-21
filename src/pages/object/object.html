@@ -1,9 +1,7 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>Find this exhibit</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -33,11 +31,11 @@
       </ion-card-title>
       <div>You need to find the exhibit before you can continue unwrapping the gift. Don't be afraid to ask for help from other visitors or museum staff.</div>
       <div>
-        <button ion-button color="danger" (click)="failChallenge()">
-          I can't find it
-        </button>
         <button ion-button (click)="completeChallenge()">
           Found!
+        </button>
+        <button ion-button color="danger" (click)="failChallenge()">
+          I can't find it
         </button>
       </div>
     </ion-card-content>

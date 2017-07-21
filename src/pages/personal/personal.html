@@ -15,11 +15,11 @@
         {{this.getChallenge()}}
       </div>
       <div>
-        <button ion-button color="danger" (click)="failChallenge()">
-          I can't do this right now
-        </button>
         <button ion-button (click)="completeChallenge()">
           Done
+        </button>
+        <button ion-button color="danger" (click)="failChallenge()">
+          Back
         </button>
       </div>
     </ion-card-content>

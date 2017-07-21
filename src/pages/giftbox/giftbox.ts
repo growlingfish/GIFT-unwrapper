@@ -20,13 +20,12 @@ export class GiftboxPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private auth: AuthServiceProvider, private loadingCtrl: LoadingController) {
     this.currentUser = this.auth.getUserInfo();
 
-    this.showLoading()
+    this.showLoading();
     this.giftboxService.loadGifts(this.currentUser.id).subscribe(available => {
       if (available) {
         this.items = [];
         var gifts = giftboxService.getGifts();
         for (let i = 0; i < gifts.length; i++) {
-          console.log(gifts[i].unwrapped);
           this.items.push({
             title: gifts[i].title,
             sender: 'from ' + gifts[i].sender,
@@ -55,6 +54,18 @@ export class GiftboxPage {
     }
   }
 
+  sprint_giftTapped () {
+    if (this.giftboxService.getGiftWithID(this.giftboxService.currentGift).hasGiftcard()) {
+      this.navCtrl.push(GiftcardPage, {
+        giftId: this.giftboxService.getGiftWithID(this.giftboxService.currentGift).id
+      });
+    } else {
+      this.navCtrl.setRoot(GiftPage, {
+        giftId: this.giftboxService.getGiftWithID(this.giftboxService.currentGift).id
+      });
+    }
+  }
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
@@ -69,7 +80,9 @@ export class GiftboxPage {
 
   allGiftsUnwrapped() {
     for (var i = 0; i < this.items.length; i++) {
-      if (this.giftboxService.getGiftWithID(this.items[i].id).isWrapped()) {
+      //console.log(this.giftboxService.getGiftWithID(this.items[i].id).unwrapped);
+      //if (this.giftboxService.getGiftWithID(this.items[i].id).isWrapped()) {
+      if (!this.giftboxService.getGiftWithID(this.items[i].id).unwrapped) {
         return false;
       }
     }

@@ -52,6 +52,7 @@ export class Gift {
   public sprint_HasObject () {
     if (this.wraps.length > 0) {
       for (let i = 0; i < this.wraps[0].challenges.length; i++) {
+        console.log(this.wraps[0].challenges[i]);
         if (this.wraps[0].challenges[i].type == 'object') {
           return true;
         }
@@ -231,6 +232,24 @@ export class GiftboxServiceProvider {
       }
     }
     return null;
+  }
+
+  hasMoreGifts () {
+    for (var i = 0; i < this.gifts.length; i++) {
+      console.log(this.gifts[i].unwrapped);
+      if (!this.gifts[i].unwrapped) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  updateCurrentGift () {
+    for (var i = 0; i < this.gifts.length; i++) {
+      if (!this.gifts[i].unwrapped) {
+        this.currentGift = this.gifts[i].id;
+      }
+    }
   }
 
 }

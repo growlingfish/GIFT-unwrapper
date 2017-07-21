@@ -56,25 +56,6 @@ export class LoginPage {
   }
 
   profile () {
-    let alert = this.alertCtrl.create({
-      title: 'Are you sure?',
-      message: 'You will only receive gifts from strangers.',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Carry on',
-          handler: () => {
-            this.nav.setRoot(ProfilePage);
-          }
-        }
-      ]
-    });
-    alert.present();
+    this.nav.setRoot(ProfilePage);
   }
 }

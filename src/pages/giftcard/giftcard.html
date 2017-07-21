@@ -14,17 +14,17 @@
       <h2>{{this.giftboxService.getGiftWithID(this.giftId).title}}</h2>
       <div [innerHTML]="this.giftboxService.getGiftWithID(this.giftId).giftcard.content"></div>
       <div><em>From {{this.giftboxService.getGiftWithID(this.giftId).sender}}</em></div>
-      <button ion-button (click)="leaveGiftcard()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).received">
-        OK
+      <button ion-button (click)="leaveGiftcard()">
+        Continue
       </button>
     </ion-slide>
-    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
+<!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
       <h2>Unwrap me</h2>
       <div>{{this.giftboxService.getGiftWithID(this.giftId).sender}} has set challenges that you must complete before you can look inside your gift.</div>
       <div>Tap "Start" to see what you need to do.</div>
       <button ion-button (click)="leaveGiftcard()">
         Start
       </button>
-    </ion-slide>
+    </ion-slide> -->
   </ion-slides>
 </ion-content>

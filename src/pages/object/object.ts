@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { GiftboxPage } from '../../pages/giftbox/giftbox';
-import { WrapPage } from '../../pages/wrap/wrap';
+import { PayloadPage } from '../payload/payload';
 import { GlobalVarProvider } from '../../providers/global-var/global-var';
 
 @Component({
@@ -45,9 +45,8 @@ export class ObjectPage {
       }
     }
     if (this.globalVar.sprint) {
-      this.nav.setRoot(WrapPage, {
-        giftId: this.giftId,
-        wrapId: this.giftboxService.getGiftWithID(this.giftId).wraps[0].id
+      this.nav.setRoot(PayloadPage, {
+        giftId: this.giftId
       });
     } else {
       this.nav.pop();
