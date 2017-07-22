@@ -236,8 +236,7 @@ export class GiftboxServiceProvider {
 
   hasMoreGifts () {
     for (var i = 0; i < this.gifts.length; i++) {
-      console.log(this.gifts[i].unwrapped);
-      if (!this.gifts[i].unwrapped) {
+      if (this.gifts[i].id != this.currentGift && !this.gifts[i].unwrapped) {
         return true;
       }
     }

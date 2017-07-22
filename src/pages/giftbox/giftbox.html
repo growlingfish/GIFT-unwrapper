@@ -34,7 +34,7 @@
       </ion-card>
     </ng-container>
   </ng-container> -->
-  <ion-card *ngIf="items.length == 0">
+  <ion-card *ngIf="items.length == 0" (click)="backToHome()">
     <img src="./assets/sad.jpg"/>
     <ion-card-content>
       <ion-card-title>
@@ -45,7 +45,7 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="allGiftsUnwrapped()" (click)="logout()">
+  <ion-card *ngIf="items.length > 0 && allGiftsUnwrapped()" (click)="logout()">
     <img src="./assets/empty.jpg"/>
     <ion-card-content>
       <ion-card-title>

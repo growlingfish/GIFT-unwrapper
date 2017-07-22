@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, Loading } from 'ionic-angu
 import { GiftPage } from '../gift/gift';
 import { GiftcardPage } from '../giftcard/giftcard';
 import { LogoutPage } from '../logout/logout';
+import { HomePage } from '../home/home';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../providers/auth-service/auth-service';
@@ -52,6 +53,10 @@ export class GiftboxPage {
         giftId: item.id
       });
     }
+  }
+
+  backToHome () {
+    this.navCtrl.push(HomePage);
   }
 
   sprint_giftTapped () {

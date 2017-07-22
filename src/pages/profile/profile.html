@@ -1,14 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Your profile</ion-title>
+    <ion-title>A Guest</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
     <ion-card-content>
+      <ion-card-title>
+        About you
+      </ion-card-title>
       <div>
-        This is where the user chooses what sort of a "stranger" they are, somehow.
+        What sort of a visitor will you be today?
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (click)="chooseLocal()">
+    <img src="./assets/local.jpg" />
+    <ion-card-content>
+      <div>
+        A local
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card (click)="chooseOutOfTown()">
+    <img src="./assets/outoftown.jpg" />
+    <ion-card-content>
+      <div>
+        From out of town
       </div>
     </ion-card-content>
   </ion-card>

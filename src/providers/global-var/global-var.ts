@@ -33,7 +33,7 @@ export class GlobalVarProvider {
   }
 
   getAuthURL (user, pass) {
-    return this.getApiBase() + "auth/" + user + "/" + pass;
+    return this.getApiBase() + "auth/" + encodeURI(user) + "/" + encodeURI(pass);
   }
 
   getGiftsURL (userId) {

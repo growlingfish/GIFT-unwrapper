@@ -31,9 +31,9 @@ export class LoginPage {
         this.showError("Access Denied");
       }
     },
-      error => {
-        this.showError(error);
-      });
+    error => {
+      this.showError(error);
+    });
   }
 
   showLoading() {
