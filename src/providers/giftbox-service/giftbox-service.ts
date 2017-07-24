@@ -148,7 +148,7 @@ export class GiftboxServiceProvider {
             var gift = new Gift(
               data.gifts[i].ID,
               data.gifts[i].post_title,
-              sender.nickname,
+              decodeURIComponent(sender.nickname),
               sender.user_email,
               (data.gifts[i].status['received'] === true || data.gifts[i].status['received'] == 'true'),
               (data.gifts[i].status['unwrapped'] === true || data.gifts[i].status['unwrapped'] == 'true'),
