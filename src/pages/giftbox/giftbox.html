@@ -35,13 +35,13 @@
     </ng-container>
   </ng-container> -->
   <ion-card *ngIf="items.length == 0" (click)="backToHome()">
-    <img src="./assets/sad.jpg"/>
+    <img src="./assets/empty.jpg"/>
     <ion-card-content>
       <ion-card-title>
         Sorry!
       </ion-card-title>
       <div>
-        You don't have any gifts.
+        You don't have a gift.
       </div>
     </ion-card-content>
   </ion-card>
@@ -49,10 +49,10 @@
     <img src="./assets/empty.jpg"/>
     <ion-card-content>
       <ion-card-title>
-        All gifts unwrapped
+        Thank you
       </ion-card-title>
       <div>
-        Outro text.
+        We hope you enjoyed your gift. Please return to the briefing room to talk about your experience.
       </div>
     </ion-card-content>
   </ion-card>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { GiftboxServiceProvider } from '../../providers/giftbox-service/giftbox-service';
 import { GiftboxPage } from '../../pages/giftbox/giftbox';
 import { PayloadPage } from '../payload/payload';
@@ -13,7 +13,7 @@ export class ObjectPage {
   giftId: number;
   wrapId: number;
 
-  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private globalVar: GlobalVarProvider) {
+  constructor(public nav: NavController, public navParams: NavParams, private giftboxService: GiftboxServiceProvider, private globalVar: GlobalVarProvider, private alertCtrl: AlertController) {
     this.giftId = navParams.get('giftId');
     this.wrapId = navParams.get('wrapId');
   }
@@ -32,7 +32,14 @@ export class ObjectPage {
 
   failChallenge () {
     if (this.globalVar.sprint) {
-      this.nav.setRoot(GiftboxPage);
+      //this.nav.setRoot(GiftboxPage);
+
+      let alert = this.alertCtrl.create({
+        title: 'Help!',
+        subTitle: "Show the photo to another visitor or member of staff and see if they can help.",
+        buttons: ['OK']
+      });
+      alert.present();
     } else {
       this.nav.pop();
     }

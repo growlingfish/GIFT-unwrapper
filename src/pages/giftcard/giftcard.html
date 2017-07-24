@@ -6,10 +6,10 @@
 
 <ion-content padding>
   <ion-slides pager>
-    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
+<!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).received">
       <h2>Welcome to your gift</h2>
       <div>Swipe left to look at your giftcard.</div>
-    </ion-slide>
+    </ion-slide> -->
     <ion-slide>
       <h2>{{this.giftboxService.getGiftWithID(this.giftId).title}}</h2>
       <div [innerHTML]="this.giftboxService.getGiftWithID(this.giftId).giftcard.content"></div>

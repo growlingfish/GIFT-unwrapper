@@ -1,15 +1,15 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Message from {{this.giftboxService.getGiftWithID(this.giftId).sender}}</ion-title>
+    <ion-title>Gift from {{this.giftboxService.getGiftWithID(this.giftId).sender}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding [ngStyle]="{'background-url': getObjectImage()}">
   <ion-slides pager>
-    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
+<!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>What's inside?</h2>
       <div>Swipe left to start looking.</div>
-    </ion-slide>
+    </ion-slide> -->
     <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads; let i = index; let last = last">
       <h2 *ngIf="multipart()">Part {{i + 1}}</h2>
       <div [innerHTML]="payload.content"></div>
@@ -20,17 +20,16 @@
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && this.giftboxService.hasMoreGifts()">
       <h2>That's all for this part</h2>
       <div>You have finished this part of your gift but there are more waiting for you.</div>
-      <div>You can swipe back for another look, or tap 'Next' to continue to the next part.</div>
+      <div>Tap 'Next' to continue to the next part.</div>
       <button ion-button (click)="leaveGift()">
         Next
       </button>
     </ion-slide>
     <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && !this.giftboxService.hasMoreGifts()">
       <h2>That's everything!</h2>
-      <div>You have completely finished experiencing your gift.</div>
-      <div>You can swipe back for another look, or tap 'Done' to finish.</div>
+      <div>You have experienced your gift from {{this.giftboxService.getGiftWithID(this.giftId).sender}}.</div>
       <button ion-button (click)="leaveGift()">
-        Next
+        Done
       </button>
     </ion-slide>
 <!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">

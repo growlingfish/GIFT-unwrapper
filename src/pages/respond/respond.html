@@ -16,11 +16,11 @@
   <ion-card>
     <ion-card-content>
       <ion-card-title>
-        Do you want to send a message to {{this.giftboxService.getGiftWithID(this.giftId).sender}}?
+        A message to {{this.giftboxService.getGiftWithID(this.giftId).sender}}
       </ion-card-title>
       <div>Do you want to send a message to {{this.giftboxService.getGiftWithID(this.giftId).sender}} who made your gift?</div>
       <ion-item>
-        <ion-textarea placeholder="Enter a message" [(ngModel)]="responseText"></ion-textarea>
+        <ion-textarea placeholder="Enter a message" spellcheck="true" [(ngModel)]="responseText"></ion-textarea>
       </ion-item>
       <div>
         <button ion-button [disabled]="!responseComplete()" (click)="sendResponse()">
