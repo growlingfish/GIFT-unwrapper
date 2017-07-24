@@ -34,7 +34,6 @@ export class AuthServiceProvider {
           .subscribe(data => {
             var authed = false;
             if (typeof data.success !== 'undefined' && data.success) {
-              console.log(data);
               this.currentUser = new User(data.name, credentials.email, data.id);
               authed = true;
             }
