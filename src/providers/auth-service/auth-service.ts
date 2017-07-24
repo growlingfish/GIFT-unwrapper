@@ -34,7 +34,7 @@ export class AuthServiceProvider {
           .subscribe(data => {
             var authed = false;
             if (typeof data.success !== 'undefined' && data.success) {
-              this.currentUser = new User(data.name, credentials.email, data.id);
+              this.currentUser = new User(decodeURIComponent(data.name), credentials.email, data.id);
               authed = true;
             }
             observer.next(authed);
