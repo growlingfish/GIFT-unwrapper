@@ -9,13 +9,18 @@
 
 <ion-content padding>
   <ion-row>
-    <ion-card (click)="openGiftbox()">
+    <ion-card>
       <img src="./assets/delivery.jpg"/>
       <ion-card-content>
         <ion-card-title>
           Your gifts
         </ion-card-title>
-        Hello {{this.auth.currentUser.name}}. Tap here to check for gifts that have been sent to you.
+        Hello {{this.auth.currentUser.name}}. Would you like to check for gifts that have been sent to you?
+        <div>
+          <button ion-button (click)="openGiftbox()">
+            Check for gifts
+          </button>
+        </div>
       </ion-card-content>
     </ion-card>
   </ion-row>

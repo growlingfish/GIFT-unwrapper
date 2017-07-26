@@ -4,34 +4,46 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding [ngStyle]="{'background-url': getObjectImage()}">
-  <ion-slides pager>
-<!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
+<ion-content padding>
+<!--  <ion-slides pager>
+    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>What's inside?</h2>
       <div>Swipe left to start looking.</div>
     </ion-slide> -->
-    <ion-slide *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads; let i = index; let last = last">
-      <h2 *ngIf="multipart()">Part {{i + 1}}</h2>
-      <div [innerHTML]="payload.content"></div>
-      <button ion-button (click)="leaveGift()" *ngIf="this.giftboxService.getGiftWithID(this.giftId).unwrapped && last">
-        Done
-      </button>
-    </ion-slide>
-    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && this.giftboxService.hasMoreGifts()">
-      <h2>That's all for this part</h2>
-      <div>You have finished this part of your gift but there are more waiting for you.</div>
-      <div>Tap 'Next' to continue to the next part.</div>
-      <button ion-button (click)="leaveGift()">
-        Next
-      </button>
-    </ion-slide>
-    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && !this.giftboxService.hasMoreGifts()">
-      <h2>That's everything!</h2>
-      <div>You have experienced your gift from {{this.giftboxService.getGiftWithID(this.giftId).sender}}.</div>
-      <button ion-button (click)="leaveGift()">
-        Done
-      </button>
-    </ion-slide>
+    <ion-card *ngFor="let payload of this.giftboxService.getGiftWithID(this.giftId).payloads">
+      <ion-item>
+        <h1 text-wrap>{{this.giftboxService.getGiftWithID(this.giftId).title}}</h1>
+      </ion-item>
+      <ng-container *ngIf="this.getExhibit().post_image">
+        <img [src]="this.getExhibit().post_image"/>
+      </ng-container>
+      <ion-card-content>
+        <p [innerHTML]="payload.content"></p>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && this.giftboxService.hasMoreGifts()">
+      <ion-card-content>
+        <ion-card-title>
+          That's all for this part
+        </ion-card-title>
+        <div>There are more parts of your gift waiting for you.</div>
+        <div>Tap 'Continue' to move on.</div>
+        <button ion-button (click)="leaveGift()">
+          Continue
+        </button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped && !this.giftboxService.hasMoreGifts()">
+      <ion-card-content>
+        <ion-card-title>
+          That's everything!
+        </ion-card-title>
+        <div>You have finished experiencing your gift from {{this.giftboxService.getGiftWithID(this.giftId).sender}}.</div>
+        <button ion-button (click)="leaveGift()">
+          OK
+        </button>
+      </ion-card-content>
+    </ion-card>
 <!--    <ion-slide *ngIf="!this.giftboxService.getGiftWithID(this.giftId).unwrapped">
       <h2>That's everything!</h2>
       <div>You have finished unwrapping and experiencing your gift.</div>
@@ -39,6 +51,6 @@
       <button ion-button (click)="leaveGift()">
         Done
       </button>
-    </ion-slide> -->
-  </ion-slides>
+    </ion-slide> 
+  </ion-slides>-->
 </ion-content>

@@ -36,6 +36,18 @@ export class PayloadPage {
     }
   }
 
+  getExhibit () {
+    return this.getChallenge().task;
+  }
+
+  getChallenge () {
+    for (var i = 0; i < this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges.length; i++) {
+      if (this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges[i].type == 'object') {
+        return this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges[i];
+      }
+    }
+  }
+
   multipart () {
     return this.giftboxService.getGiftWithID(this.giftId).payloads.length > 1;
   }
@@ -56,12 +68,4 @@ export class PayloadPage {
     this.nav.setRoot(GiftboxPage);
   }
 
-  getObjectImage () {
-    for (var i = 0; i < this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges.length; i++) {
-      if (this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges[i].type == 'object') {
-        return this.giftboxService.getGiftWithID(this.giftId).wraps[0].challenges[i].task['post_image'];
-      }
-    }
-    return './assets/background.jpg';
-  }
 }

@@ -9,14 +9,22 @@
 
 <ion-content padding>
   <ng-container *ngIf="!allGiftsUnwrapped()">
-    <ion-card (click)="sprint_giftTapped()">
+    <ion-card>
       <img src="./assets/callout.jpg"/>
       <ion-card-content>
-        <ion-card-title>
+        <ion-card-title *ngIf="items.length == 1">
           You have a new gift!
         </ion-card-title>
+        <ion-card-title *ngIf="items.length > 1">
+          You have a new part of a gift!
+        </ion-card-title>
         <div>
-          Tap here to open it.
+          <button ion-button (click)="sprint_giftTapped()" *ngIf="items.length == 1">
+            Open my gift
+          </button>
+          <button ion-button (click)="sprint_giftTapped()" *ngIf="items.length > 1">
+            Open this part
+          </button>
         </div>
       </ion-card-content>
     </ion-card>
