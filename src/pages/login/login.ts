@@ -28,7 +28,7 @@ export class LoginPage {
       if (allowed) {
         this.nav.setRoot(HomePage);
       } else {
-        this.showError("Access Denied");
+        this.showError("Your email address or password was incorrect. Check them and try again.");
       }
     },
     error => {
@@ -48,7 +48,7 @@ export class LoginPage {
     this.loading.dismiss();
 
     let alert = this.alertCtrl.create({
-      title: 'Fail',
+      title: 'Login unsuccessful',
       subTitle: text,
       buttons: ['OK']
     });

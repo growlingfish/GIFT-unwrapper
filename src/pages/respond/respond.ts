@@ -19,27 +19,26 @@ export class RespondPage {
   }
 
   declineResponse () {
+    this.nav.pop();
     this.notificationService.declineResponse(this.giftId).subscribe(success => {
-      console.log(success);
-      this.nav.pop();
+//      console.log(success);
     },
     error => {
-      console.log(error);
-      this.nav.pop();
+//      console.log(error);
+//      this.nav.pop();
     });
   }
 
   sendResponse () {
-    this.showLoading();
+      this.nav.pop();    
+//    this.showLoading();
     this.notificationService.sendResponse(this.responseText, this.giftId).subscribe(success => {
-      console.log(success);
-      this.loading.dismiss();
-      this.nav.pop();
+//      this.loading.dismiss();
     },
     error => {
       console.log(error);
-      this.loading.dismiss();
-      this.nav.pop();
+      //this.loading.dismiss();
+      //this.nav.pop();
     });
   }
 
